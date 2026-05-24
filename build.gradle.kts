@@ -199,10 +199,18 @@ kotlin {
         binaries.framework { baseName = "TracingSubscriber"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "TracingSubscriber"; xcf.add(this) }
+        binaries.framework {
+            baseName = "TracingSubscriber"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "TracingSubscriber"; xcf.add(this) }
+        binaries.framework {
+            baseName = "TracingSubscriber"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
