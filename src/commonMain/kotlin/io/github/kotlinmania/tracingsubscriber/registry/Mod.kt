@@ -1,3 +1,4 @@
+// port-lint: source registry/mod.rs
 package io.github.kotlinmania.tracingsubscriber.registry
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes
@@ -78,7 +79,7 @@ class ScopeFromRoot<out S : LookupSpan>(
     override fun iterator(): Iterator<SpanRef<S>> = spans.iterator()
 }
 
-internal class RegistrySpanData(
+class RegistrySpanData(
     override val id: SpanId,
     override val metadata: Metadata,
     override val parent: SpanId?,

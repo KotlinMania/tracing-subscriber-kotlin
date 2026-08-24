@@ -1,6 +1,14 @@
+// port-lint: source lib.rs
 package io.github.kotlinmania.tracingsubscriber
 
 import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracingsubscriber.filter.env.EnvFilter
+import io.github.kotlinmania.tracingsubscriber.layer.Layer
+import io.github.kotlinmania.tracingsubscriber.registry.Registry
+
+typealias EnvFilter = EnvFilter
+typealias Layer<S> = Layer<S>
+typealias Registry = Registry
 
 var globalSubscriber: Subscriber? = null
 
