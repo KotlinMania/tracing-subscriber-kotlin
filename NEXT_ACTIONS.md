@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 39/80 (48.8%)
-- **Function parity:** 187/1073 matched (target 277) — 17.4%
-- **Class/type parity:** 56/216 matched (target 90) — 25.9%
-- **Combined symbol parity:** 243/1289 matched (target 367) — 18.9%
+- **Function parity:** 187/1073 matched (target 294) — 17.4%
+- **Class/type parity:** 56/216 matched (target 97) — 25.9%
+- **Combined symbol parity:** 243/1289 matched (target 391) — 18.9%
 - **Average inline-code cosine:** 0.19 (function body across 30 matched files)
 - **Average documentation cosine:** 0.31 (doc text across 30 matched files)
 - **Cheat-zeroed Files:** 12
@@ -35,13 +35,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.65
 - **Dependents:** 4
 - **Priority Score:** 4000303.5
-- **Functions:** 3/3 matched (target 4)
+- **Functions:** 3/3 matched (target 9)
 - **Missing functions:** _none_
-- **Types:** 0/0 matched (target 2)
+- **Types:** 0/0 matched (target 3)
 - **Missing types:** _none_
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `filter/level.rs` vs expected `filter/level.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:filter/level.rs` vs expected `filter/level.rs`
 - **Proposed provenance header:** `// port-lint: source filter/level.rs` (current: `// port-lint: source filter/level.rs`)
-- **Lint issues:** 1
+- **Proposed provenance header:** `// port-lint: tests filter/level.rs` (current: `// port-lint: tests filter/level.rs`)
+- **Lint issues:** 2
 
 ### 2. fmt.writer
 
@@ -64,14 +66,16 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.12
 - **Dependents:** 1
 - **Priority Score:** 1314108.9
-- **Functions:** 9/36 matched (target 18)
+- **Functions:** 9/36 matched (target 23)
 - **Missing functions:** `new`, `iter`, `interested`, `extend`, `from_iter`, `from_str`, `into_iter`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `parse_level_directives`, `parse_uppercase_level_directives`, `parse_numeric_level_directives`, `targets_iter`, `targets_into_iter`, `targets_default_level`, `size_of_filters`, `print_sz`, `display_roundtrips`, `test_roundtrip`
-- **Types:** 1/5 matched (target 1)
+- **Types:** 1/5 matched (target 2)
 - **Missing types:** `Err`, `Item`, `IntoIter`, `Iter`
 - **Tests:** 0/17 matched
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `filter/targets.rs` vs expected `filter/targets.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:filter/targets.rs` vs expected `filter/targets.rs`
 - **Proposed provenance header:** `// port-lint: source filter/targets.rs` (current: `// port-lint: source filter/targets.rs`)
-- **Lint issues:** 1
+- **Proposed provenance header:** `// port-lint: tests filter/targets.rs` (current: `// port-lint: tests filter/targets.rs`)
+- **Lint issues:** 2
 
 ### 4. format.escape
 
@@ -285,14 +289,16 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 152310.0
-- **Functions:** 4/17 matched (target 24)
+- **Functions:** 4/17 matched (target 26)
 - **Missing functions:** `next`, `id`, `metadata`, `name`, `fields`, `parent`, `extensions`, `extensions_mut`, `try_with_filter`, `with_filter`, `spanref_scope_iteration_order`, `on_enter`, `spanref_scope_fromroot_iteration_order`
-- **Types:** 4/6 matched (target 7)
+- **Types:** 4/6 matched (target 9)
 - **Missing types:** `Item`, `PrintingLayer`
 - **Tests:** 0/2 matched
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `registry/mod.rs` vs expected `registry/mod.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:registry/mod.rs` vs expected `registry/mod.rs`
 - **Proposed provenance header:** `// port-lint: source registry/mod.rs` (current: `// port-lint: source registry/mod.rs`)
-- **Lint issues:** 4
+- **Proposed provenance header:** `// port-lint: tests registry/mod.rs` (current: `// port-lint: tests registry/mod.rs`)
+- **Lint issues:** 5
 
 ### 19. reload
 
@@ -314,13 +320,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.41
 - **Dependents:** 0
 - **Priority Score:** 123605.9
-- **Functions:** 23/34 matched (target 26)
+- **Functions:** 23/34 matched (target 29)
 - **Missing functions:** `is`, `downcast_ref`, `on_register_dispatch`, `drop_span`, `downcast_raw`, `on_layer`, `ctx`, `new`, `pick_interest`, `pick_level_hint`, `fmt`
-- **Types:** 1/2 matched
+- **Types:** 1/2 matched (target 4)
 - **Missing types:** `Data`
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `layer/layered.rs` vs expected `layer/layered.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:layer/layered.rs` vs expected `layer/layered.rs`
 - **Proposed provenance header:** `// port-lint: source layer/layered.rs` (current: `// port-lint: source layer/layered.rs`)
-- **Lint issues:** 1
+- **Proposed provenance header:** `// port-lint: tests layer/layered.rs` (current: `// port-lint: tests layer/layered.rs`)
+- **Lint issues:** 2
 
 ### 21. filter.filter_fn
 
@@ -328,13 +336,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.12
 - **Dependents:** 0
 - **Priority Score:** 111708.8
-- **Functions:** 4/15 matched (target 10)
+- **Functions:** 4/15 matched (target 12)
 - **Missing functions:** `new`, `with_max_level_hint`, `is_enabled`, `is_callsite_enabled`, `is_below_max_level`, `register_callsite`, `from`, `fmt`, `with_callsite_filter`, `default_callsite_enabled`, `clone`
-- **Types:** 2/2 matched
+- **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `filter/filter_fn.rs` vs expected `filter/filter_fn.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:filter/filter_fn.rs` vs expected `filter/filter_fn.rs`
 - **Proposed provenance header:** `// port-lint: source filter/filter_fn.rs` (current: `// port-lint: source filter/filter_fn.rs`)
-- **Lint issues:** 1
+- **Proposed provenance header:** `// port-lint: tests filter/filter_fn.rs` (current: `// port-lint: tests filter/filter_fn.rs`)
+- **Lint issues:** 2
 
 ### 22. layer.mod
 
