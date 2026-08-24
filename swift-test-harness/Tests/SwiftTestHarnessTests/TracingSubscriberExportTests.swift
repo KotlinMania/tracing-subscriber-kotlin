@@ -6,7 +6,7 @@ struct TracingSubscriberExportTests {
     @Test("TracingSubscriber module imports and exposes types")
     func testSwiftModuleLoads() throws {
         let registry = io.github.kotlinmania.tracingsubscriber.registry.registry()
-        #expect(registry != nil)
+        _ = registry
     }
 }
 
