@@ -19,7 +19,7 @@ interface SpanData {
     val parent: SpanId?
     val refCount: Int
     val extensions: Extensions
-    val fields: MutableMap<String, Any?>
+    val fields: Map<String, Any?>
 
     fun isEnabledFor(filterId: Long): Boolean
 }
@@ -45,29 +45,33 @@ class SpanRef<out S : LookupSpan>(
 ) {
     val metadata: Metadata get() = data.metadata
     val name: String get() = data.metadata.name
+    val fields: Map<String, Any?> get() = data.fields
     val parent: SpanRef<LookupSpan>? get() = data.parent?.let { subscriber.span(it) }
+    val parentId: SpanId? get() = data.parent
     val extensions: Extensions get() = data.extensions
-    val fields: MutableMap<String, Any?> get() = data.fields
 
-    fun scope(): Scope<S> = Scope(this)
+    fun scope(): Scope<LookupSpan> =
+        Scope(
+            buildList {
+                var current: SpanId? = id
+                while (current != null) {
+                    val span = subscriber.span(current) ?: break
+                    add(span)
+                    current = span.parentId
+                }
+            },
+        )
 }
 
 /**
  * An iterator over the spans in the current scope, starting from the leaf and ending at the root.
  */
 class Scope<out S : LookupSpan>(
-    val leaf: SpanRef<S>,
-) : Iterable<SpanRef<LookupSpan>> {
-    override fun iterator(): Iterator<SpanRef<LookupSpan>> =
-        iterator {
-            var current: SpanRef<LookupSpan>? = leaf
-            while (current != null) {
-                yield(current)
-                current = current.parent
-            }
-        }
+    private val spans: List<SpanRef<S>>,
+) : Iterable<SpanRef<S>> {
+    override fun iterator(): Iterator<SpanRef<S>> = spans.iterator()
 
-    fun fromRoot(): ScopeFromRoot<LookupSpan> = ScopeFromRoot(this.toList().reversed())
+    fun fromRoot(): ScopeFromRoot<S> = ScopeFromRoot(spans.reversed())
 }
 
 /**
@@ -85,9 +89,14 @@ class RegistrySpanData(
     override val parent: SpanId?,
     override var refCount: Int = 1,
     override val extensions: Extensions = Extensions(),
-    override val fields: MutableMap<String, Any?> = mutableMapOf(),
 ) : SpanData {
+    private val storageFields: MutableMap<String, Any?> = mutableMapOf()
+    override val fields: Map<String, Any?> get() = storageFields
     private val disabledFilters = mutableSetOf<Long>()
+
+    fun recordFields(newFields: Map<String, Any?>) {
+        storageFields.putAll(newFields)
+    }
 
     fun disableFor(filterId: Long) {
         if (filterId != 0L) {
@@ -117,28 +126,22 @@ class Registry :
     override fun enabled(metadata: Metadata): Boolean = true
 
     override fun newSpan(attributes: Attributes): SpanId {
-        val parentId =
-            when {
-                attributes.isRoot -> null
-                attributes.parent != null -> attributes.parent
-                attributes.isContextual -> currentSpan()
-                else -> null
-            }
         val id = SpanId(nextSpanIdValue++)
-        val spanData =
+        val span =
             RegistrySpanData(
                 id = id,
                 metadata = attributes.metadata,
-                parent = parentId,
-                fields = attributes.values.toMutableMap(),
-            )
-        spans[id] = spanData
+                parent = attributes.parent ?: currentSpan(),
+            ).apply {
+                recordFields(attributes.values)
+            }
+        spans[id] = span
         return id
     }
 
     override fun record(id: SpanId, values: Record) {
         val span = spans[id] ?: return
-        span.fields.putAll(values.values)
+        span.recordFields(values.values)
     }
 
     override fun recordFollowsFrom(span: SpanId, follows: SpanId) {}

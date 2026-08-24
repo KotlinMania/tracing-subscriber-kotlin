@@ -25,11 +25,11 @@ interface Filter<in S : Subscriber> {
  * Extension functions for combining [Filter] instances.
  */
 interface FilterExt<S : Subscriber> : Filter<S> {
-    fun <B : Filter<S>> and(other: B): io.github.kotlinmania.tracingsubscriber.filter.layerfilters.And<Filter<S>, B, S> =
+    fun and(other: Filter<S>): io.github.kotlinmania.tracingsubscriber.filter.layerfilters.And<Filter<S>, Filter<S>, S> =
         io.github.kotlinmania.tracingsubscriber.filter.layerfilters
             .And(this, other)
 
-    fun <B : Filter<S>> or(other: B): io.github.kotlinmania.tracingsubscriber.filter.layerfilters.Or<Filter<S>, B, S> =
+    fun or(other: Filter<S>): io.github.kotlinmania.tracingsubscriber.filter.layerfilters.Or<Filter<S>, Filter<S>, S> =
         io.github.kotlinmania.tracingsubscriber.filter.layerfilters
             .Or(this, other)
 

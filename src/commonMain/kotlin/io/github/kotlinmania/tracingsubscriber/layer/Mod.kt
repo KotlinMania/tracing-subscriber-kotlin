@@ -40,11 +40,11 @@ interface Layer<S : Subscriber> {
 
     fun maxLevelHint(): LevelFilter? = null
 
-    fun <L : Layer<S>> andThen(other: L): Layered<Layer<S>, L, S> = Layered(this, other)
+    fun andThen(other: Layer<S>): Layered<Layer<S>, Layer<S>, S> = Layered(this, other)
 
     fun withSubscriber(subscriber: S): LayeredSubscriber<Layer<S>, S> = LayeredSubscriber(this, subscriber)
 
-    fun <F : Filter<S>> withFilter(filter: F): Filtered<Layer<S>, F, S> = Filtered(this, filter)
+    fun withFilter(filter: Filter<S>): Filtered<Layer<S>, Filter<S>, S> = Filtered(this, filter)
 }
 
 /**
@@ -55,5 +55,5 @@ interface SubscriberExt : Subscriber
 /**
  * Extension on [Subscriber] to compose it with a [Layer].
  */
-fun <S : Subscriber, L : Layer<S>> S.with(layer: L): LayeredSubscriber<L, S> =
+fun <S : Subscriber> S.with(layer: Layer<S>): LayeredSubscriber<Layer<S>, S> =
     LayeredSubscriber(layer, this)
