@@ -6,26 +6,25 @@ import io.github.kotlinmania.tracingsubscriber.core.Level
 import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
 import io.github.kotlinmania.tracingsubscriber.core.Metadata
 import io.github.kotlinmania.tracingsubscriber.core.SpanId
+import io.github.kotlinmania.tracingsubscriber.core.Subscriber
 import io.github.kotlinmania.tracingsubscriber.filter.filterFn
-import io.github.kotlinmania.tracingsubscriber.filter.withFilter
 import io.github.kotlinmania.tracingsubscriber.layer.Context
 import io.github.kotlinmania.tracingsubscriber.layer.Layer
 import io.github.kotlinmania.tracingsubscriber.layer.with
-import io.github.kotlinmania.tracingsubscriber.registry.Registry
 import io.github.kotlinmania.tracingsubscriber.registry.registry
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LayeredTest {
-    class RecordingLayer : Layer<Registry> {
+    class RecordingLayer : Layer<Subscriber> {
         val events = mutableListOf<String>()
         val enteredSpans = mutableListOf<SpanId>()
 
-        override fun onEvent(event: Event, context: Context<Registry>) {
+        override fun onEvent(event: Event, context: Context<Subscriber>) {
             events.add(event.metadata.name)
         }
 
-        override fun onEnter(id: SpanId, context: Context<Registry>) {
+        override fun onEnter(id: SpanId, context: Context<Subscriber>) {
             enteredSpans.add(id)
         }
     }

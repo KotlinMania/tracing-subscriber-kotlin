@@ -104,6 +104,16 @@ jobs:
                       count=1,
                   )
               )
+
+          for swift_file in Path("build/SPMPackage/macosArm64/Debug/Sources").rglob("*.swift"):
+              stext = swift_file.read_text()
+              if "any OrgJetbrainsKotlinxKotlinxDatetime._ExportedKotlinPackages_kotlinx_datetime_format_DateTimeFormatBuilder_" in stext:
+                  stext = re.sub(
+                      r'any OrgJetbrainsKotlinxKotlinxDatetime\._ExportedKotlinPackages_kotlinx_datetime_format_DateTimeFormatBuilder_\w+',
+                      'Any',
+                      stext,
+                  )
+                  swift_file.write_text(stext)
           PY
 
       - name: Run swift test against Kotlin-exported module

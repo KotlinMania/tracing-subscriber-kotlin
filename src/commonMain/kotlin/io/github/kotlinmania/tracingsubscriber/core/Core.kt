@@ -178,3 +178,32 @@ interface Subscriber {
 
     fun maxLevelHint(): LevelFilter? = null
 }
+
+/**
+ * A subscriber that does nothing and records no data.
+ */
+class NoSubscriber : Subscriber {
+    override fun registerCallsite(metadata: Metadata): Interest = Interest.NEVER
+
+    override fun enabled(metadata: Metadata): Boolean = false
+
+    override fun newSpan(attributes: Attributes): SpanId = SpanId(0)
+
+    override fun record(id: SpanId, values: Record) {}
+
+    override fun recordFollowsFrom(span: SpanId, follows: SpanId) {}
+
+    override fun event(event: Event) {}
+
+    override fun enter(id: SpanId) {}
+
+    override fun exit(id: SpanId) {}
+
+    override fun currentSpan(): SpanId? = null
+
+    override fun cloneSpan(id: SpanId): SpanId = id
+
+    override fun tryClose(id: SpanId): Boolean = true
+
+    override fun maxLevelHint(): LevelFilter = LevelFilter.OFF
+}

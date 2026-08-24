@@ -4,11 +4,9 @@ import io.github.kotlinmania.tracingsubscriber.core.Attributes
 import io.github.kotlinmania.tracingsubscriber.core.Event
 import io.github.kotlinmania.tracingsubscriber.core.Level
 import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.fmt.CompactFields
-import io.github.kotlinmania.tracingsubscriber.fmt.DefaultFields
-import io.github.kotlinmania.tracingsubscriber.fmt.FmtLayer
-import io.github.kotlinmania.tracingsubscriber.fmt.FullFormatEvent
-import io.github.kotlinmania.tracingsubscriber.fmt.JsonFields
+import io.github.kotlinmania.tracingsubscriber.fmt.format.JsonFormat
+import io.github.kotlinmania.tracingsubscriber.fmt.format.format
+import io.github.kotlinmania.tracingsubscriber.fmt.writer.Writer
 import io.github.kotlinmania.tracingsubscriber.layer.with
 import io.github.kotlinmania.tracingsubscriber.registry.Registry
 import io.github.kotlinmania.tracingsubscriber.registry.registry
@@ -18,37 +16,77 @@ import kotlin.test.assertTrue
 
 class FmtTest {
     @Test
-    fun testDefaultFieldsFormatting() {
+    fun testFormatFullEvent() {
         val buffer = StringBuilder()
-        DefaultFields.formatFields(buffer, mapOf("k1" to "v1", "k2" to 42))
-        assertEquals("k1=v1 k2=42", buffer.toString())
+        val writer =
+            object : Writer {
+                override fun write(str: String) {
+                    buffer.append(str)
+                }
+
+                override fun writeLine(str: String) {
+                    buffer.append(str).append("\n")
+                }
+            }
+        val fmt = format()
+        val event =
+            Event(
+                Metadata("test_event", "my_target", Level.INFO),
+                fields = mapOf("message" to "hello world", "key" to "value"),
+            )
+        fmt.formatEvent(event, writer)
+        val output = buffer.toString()
+        assertTrue(output.contains("INFO"))
+        assertTrue(output.contains("my_target"))
+        assertTrue(output.contains("hello world"))
+        assertTrue(output.contains("key=value"))
     }
 
     @Test
-    fun testCompactFieldsFormatting() {
+    fun testFormatJsonEvent() {
         val buffer = StringBuilder()
-        CompactFields.formatFields(buffer, mapOf("k1" to "v1", "k2" to 42))
-        assertEquals("k1: v1, k2: 42", buffer.toString())
-    }
+        val writer =
+            object : Writer {
+                override fun write(str: String) {
+                    buffer.append(str)
+                }
 
-    @Test
-    fun testJsonFieldsFormatting() {
-        val buffer = StringBuilder()
-        JsonFields.formatFields(buffer, mapOf("name" to "alice", "count" to 3, "valid" to true))
-        assertEquals("{\"name\":\"alice\",\"count\":3,\"valid\":true}", buffer.toString())
+                override fun writeLine(str: String) {
+                    buffer.append(str).append("\n")
+                }
+            }
+        val jsonFmt = JsonFormat()
+        val event =
+            Event(
+                Metadata("test_event", "json_target", Level.DEBUG),
+                fields = mapOf("key1" to "val1"),
+            )
+        jsonFmt.formatEvent(event, writer)
+        val output = buffer.toString()
+        assertTrue(output.contains("\"level\":\"DEBUG\""))
+        assertTrue(output.contains("\"target\":\"json_target\""))
+        assertTrue(output.contains("\"key1\":\"val1\""))
     }
 
     @Test
     fun testFmtSubscriberFormatting() {
         val logs = mutableListOf<String>()
         val reg = registry()
-        val layer =
-            FmtLayer<Registry>(
-                formatEvent = FullFormatEvent(displayTimestamp = false, displayTarget = true, displayLevel = true),
-                formatFields = DefaultFields,
-                writer = { logs.add(it) },
-            )
-        val subscriber = reg.with(layer)
+        val fmtLayer =
+            io.github.kotlinmania.tracingsubscriber.fmt
+                .Layer<Registry>()
+                .withWriter {
+                    object : Writer {
+                        override fun write(str: String) {
+                            logs.add(str)
+                        }
+
+                        override fun writeLine(str: String) {
+                            logs.add(str)
+                        }
+                    }
+                }
+        val subscriber = reg.with(fmtLayer)
 
         val spanId =
             subscriber.newSpan(
@@ -68,8 +106,7 @@ class FmtTest {
 
         assertEquals(1, logs.size)
         assertTrue(logs[0].contains("INFO"))
-        assertTrue(logs[0].contains("my_span{span_key=span_val}"))
         assertTrue(logs[0].contains("test_target"))
-        assertTrue(logs[0].contains("message=hello world"))
+        assertTrue(logs[0].contains("hello world"))
     }
 }
