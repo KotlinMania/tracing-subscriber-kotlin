@@ -5,10 +5,10 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 39/40 (97.5%)
-- **Function parity:** 187/850 matched (target 295) — 22.0%
-- **Class/type parity:** 56/197 matched (target 98) — 28.4%
-- **Combined symbol parity:** 243/1047 matched (target 393) — 23.2%
-- **Average inline-code cosine:** 0.19 (function body across 30 matched files)
+- **Function parity:** 219/850 matched (target 327) — 25.8%
+- **Class/type parity:** 56/197 matched (target 99) — 28.4%
+- **Combined symbol parity:** 275/1047 matched (target 426) — 26.3%
+- **Average inline-code cosine:** 0.20 (function body across 30 matched files)
 - **Average documentation cosine:** 0.31 (doc text across 30 matched files)
 - **Cheat-zeroed Files:** 12
 - **Critical Issues:** 37 files with <0.60 function similarity
@@ -110,19 +110,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Registry`, `DataInner`, `CloseGuard`, `NullCallsite`, `AssertionLayer`, `CloseLayer`, `CloseHandle`, `CloseState`, `SetRemoved`
 - **Tests:** 0/18 matched
 
-### 8. env.directive
-
-- **Target:** `env.Directive`
-- **Similarity:** 0.07
-- **Dependents:** 0
-- **Priority Score:** 505609.2
-- **Functions:** 5/48 matched (target 6)
-- **Missing functions:** `to_static`, `is_static`, `field_matcher`, `make_tables`, `deregexify`, `level`, `from_str`, `default`, `partial_cmp`, `cmp`, `fmt`, `from`, `matcher`, `has_value_filters`, `to_span_match`, `record_update`, `parse_directives`, `expect_parse`, `directive_ordering_by_target_len`, `directive_ordering_by_span`, `directive_ordering_uses_lexicographic_when_equal`, `directive_ordering_by_field_num`, `parse_directives_ralith`, `parse_directives_ralith_uc`, `parse_directives_ralith_mixed`, `parse_directives_valid`, `parse_level_directives`, `parse_uppercase_level_directives`, `parse_numeric_level_directives`, `parse_directives_invalid_crate`, `parse_directives_invalid_level`, `parse_directives_string_level`, `parse_directives_empty_level`, `parse_directives_global`, `test_parse_bare_level`, `parse_directives_global_bare_warn_lc`, `parse_directives_global_bare_warn_uc`, `parse_directives_global_bare_warn_mixed`, `parse_directives_valid_with_spans`, `parse_directives_with_dash_in_target_name`, `parse_directives_with_dash_in_span_name`, `parse_directives_with_special_characters_in_span_name`, `parse_directives_with_invalid_span_chars`
-- **Types:** 1/8 matched (target 1)
-- **Missing types:** `Dynamics`, `Statics`, `CallsiteMatcher`, `SpanMatcher`, `MatchSet`, `ParseState`, `Err`
-- **Tests:** 0/27 matched
-
-### 9. env.mod
+### 8. env.mod
 
 - **Target:** `env.Mod [STUB]`
 - **Similarity:** 0.00
@@ -135,7 +123,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Tests:** 0/17 matched
 - **Lint issues:** 1
 
-### 10. format.json
+### 9. format.json
 
 - **Target:** `format.Json`
 - **Similarity:** 0.01
@@ -147,7 +135,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Json`, `SerializableContext`, `SerializableSpan`, `JsonFields`, `JsonVisitor`, `MockTime`
 - **Tests:** 0/16 matched
 
-### 11. env.field
+### 10. env.field
 
 - **Target:** `env.Field`
 - **Similarity:** 0.00
@@ -159,7 +147,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Match`, `SpanMatch`, `MatchVisitor`, `MatchPattern`, `MatchDebug`, `Err`, `Matcher`, `MyStruct`
 - **Tests:** 0/2 matched
 
-### 12. layer_filters.mod
+### 11. layer_filters.mod
 
 - **Target:** `layerfilters.Mod [STUB]`
 - **Similarity:** 0.00
@@ -170,19 +158,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/8 matched (target 2)
 - **Missing types:** `FilterMap`, `FilterState`, `DebugCounters`, `FilterExt`, `MagicPlfDowncastMarker`, `FmtBitset`
 
-### 13. filter.targets
-
-- **Target:** `filter.Targets`
-- **Similarity:** 0.12
-- **Dependents:** 0
-- **Priority Score:** 314108.8
-- **Functions:** 9/36 matched (target 23)
-- **Missing functions:** `new`, `iter`, `interested`, `extend`, `from_iter`, `from_str`, `into_iter`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `parse_level_directives`, `parse_uppercase_level_directives`, `parse_numeric_level_directives`, `targets_iter`, `targets_into_iter`, `targets_default_level`, `size_of_filters`, `print_sz`, `display_roundtrips`, `test_roundtrip`
-- **Types:** 1/5 matched (target 2)
-- **Missing types:** `Err`, `Item`, `IntoIter`, `Iter`
-- **Tests:** 0/17 matched
-
-### 14. filter.directive
+### 12. filter.directive
 
 - **Target:** `filter.Directive`
 - **Similarity:** 0.08
@@ -193,6 +169,30 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/9 matched (target 3)
 - **Missing types:** `FilterVec`, `Match`, `ParseErrorKind`, `Item`, `IntoIter`, `Err`
 - **Tests:** 0/1 matched
+
+### 13. env.directive
+
+- **Target:** `env.Directive`
+- **Similarity:** 0.21
+- **Dependents:** 0
+- **Priority Score:** 265607.8
+- **Functions:** 29/48 matched (target 30)
+- **Missing functions:** `to_static`, `is_static`, `field_matcher`, `make_tables`, `deregexify`, `level`, `from_str`, `default`, `partial_cmp`, `cmp`, `fmt`, `from`, `matcher`, `has_value_filters`, `to_span_match`, `record_update`, `parse_directives`, `expect_parse`, `test_parse_bare_level`
+- **Types:** 1/8 matched (target 2)
+- **Missing types:** `Dynamics`, `Statics`, `CallsiteMatcher`, `SpanMatcher`, `MatchSet`, `ParseState`, `Err`
+- **Tests:** 24/27 matched
+
+### 14. filter.targets
+
+- **Target:** `filter.Targets`
+- **Similarity:** 0.18
+- **Dependents:** 0
+- **Priority Score:** 234108.2
+- **Functions:** 17/36 matched (target 31)
+- **Missing functions:** `new`, `iter`, `interested`, `extend`, `from_iter`, `from_str`, `into_iter`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `print_sz`, `test_roundtrip`
+- **Types:** 1/5 matched (target 2)
+- **Missing types:** `Err`, `Item`, `IntoIter`, `Iter`
+- **Tests:** 8/17 matched
 
 ### 15. format.pretty
 
