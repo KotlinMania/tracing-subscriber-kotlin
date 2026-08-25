@@ -64,7 +64,7 @@ enum class LevelFilter(
 
         fun fromString(value: String): LevelFilter =
             when (value.trim().lowercase()) {
-                "off" -> OFF
+                "off", "0" -> OFF
                 "error", "1" -> ERROR
                 "warn", "warning", "2" -> WARN
                 "info", "3" -> INFO
