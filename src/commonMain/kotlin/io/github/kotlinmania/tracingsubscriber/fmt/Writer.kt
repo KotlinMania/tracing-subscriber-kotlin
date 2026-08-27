@@ -1,4 +1,4 @@
-// port-lint: source fmt/writer.rs
+// port-lint: source tracing-subscriber/src/fmt/writer.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.writer
 
 import io.github.kotlinmania.tracingsubscriber.core.Metadata

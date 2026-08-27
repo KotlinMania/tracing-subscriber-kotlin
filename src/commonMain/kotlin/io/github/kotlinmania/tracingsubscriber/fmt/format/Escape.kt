@@ -1,4 +1,4 @@
-// port-lint: source fmt/format/escape.rs
+// port-lint: source tracing-subscriber/src/fmt/format/escape.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.format
 
 /**
