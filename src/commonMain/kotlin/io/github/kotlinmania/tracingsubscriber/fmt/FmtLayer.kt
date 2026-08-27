@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/fmt/fmt_layer.rs
+// port-lint: source fmt/fmt_layer.rs
 package io.github.kotlinmania.tracingsubscriber.fmt
 
 import io.github.kotlinmania.tracingsubscriber.core.Event

@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/layer/mod.rs
+// port-lint: source layer/mod.rs
 package io.github.kotlinmania.tracingsubscriber.layer
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes

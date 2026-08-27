@@ -1,4 +1,4 @@
-// port-lint: tests tracing-subscriber/src/fmt/mod.rs, tracing-subscriber/src/fmt/fmt_layer.rs
+// port-lint: tests fmt/mod.rs, tracing-subscriber/src/fmt/fmt_layer.rs
 package io.github.kotlinmania.tracingsubscriber
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes

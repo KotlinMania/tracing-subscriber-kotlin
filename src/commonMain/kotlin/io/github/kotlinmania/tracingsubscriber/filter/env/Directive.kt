@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/filter/env/directive.rs
+// port-lint: source filter/env/directive.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
 import io.github.kotlinmania.tracingsubscriber.core.LevelFilter

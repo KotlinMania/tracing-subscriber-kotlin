@@ -1,4 +1,4 @@
-// port-lint: tests tracing-subscriber/src/layer/tests.rs
+// port-lint: tests layer/tests.rs
 package io.github.kotlinmania.tracingsubscriber.layer
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes
