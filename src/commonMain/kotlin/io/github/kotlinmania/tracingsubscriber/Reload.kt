@@ -11,11 +11,37 @@ import io.github.kotlinmania.tracingsubscriber.core.SpanId
 import io.github.kotlinmania.tracingsubscriber.core.Subscriber
 import io.github.kotlinmania.tracingsubscriber.filter.Filter
 import io.github.kotlinmania.tracingsubscriber.layer.Context
-import io.github.kotlinmania.tracingsubscriber.sync.RwLock
+
+/**
+ * Kind of reload error.
+ */
+
+sealed class ErrorKind {
+    object SubscriberGone : ErrorKind()
+
+    object Poisoned : ErrorKind()
+}
+
+typealias ReloadErrorKind = ErrorKind
+
+/**
+ * Indicates that an error occurred when reloading a layer.
+ */
+class ReloadError(
+    val kind: ErrorKind,
+    val errorDescription: String =
+        when (kind) {
+            is ErrorKind.SubscriberGone -> "Subscriber gone"
+            is ErrorKind.Poisoned -> "Lock poisoned"
+        },
+) : Exception(errorDescription)
+
+typealias Error = ReloadError
 
 /**
  * Handle for reloading a layer or filter.
  */
+
 class Handle<L : io.github.kotlinmania.tracingsubscriber.layer.Layer<Subscriber>> internal constructor(
     private val inner: RwLock<L>,
 ) {

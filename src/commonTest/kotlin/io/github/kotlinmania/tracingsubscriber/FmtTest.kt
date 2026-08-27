@@ -7,6 +7,7 @@ import io.github.kotlinmania.tracingsubscriber.core.Level
 import io.github.kotlinmania.tracingsubscriber.core.Metadata
 import io.github.kotlinmania.tracingsubscriber.fmt.format.JsonFormat
 import io.github.kotlinmania.tracingsubscriber.fmt.format.format
+import io.github.kotlinmania.tracingsubscriber.fmt.writer.MakeWriter
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.Writer
 import io.github.kotlinmania.tracingsubscriber.layer.with
 import io.github.kotlinmania.tracingsubscriber.registry.Registry
@@ -76,17 +77,19 @@ class FmtTest {
         val fmtLayer =
             io.github.kotlinmania.tracingsubscriber.fmt
                 .Layer<Registry>()
-                .withWriter {
-                    object : Writer {
-                        override fun write(str: String) {
-                            logs.add(str)
-                        }
+                .withWriter(
+                    MakeWriter {
+                        object : Writer {
+                            override fun write(str: String) {
+                                logs.add(str)
+                            }
 
-                        override fun writeLine(str: String) {
-                            logs.add(str)
+                            override fun writeLine(str: String) {
+                                logs.add(str)
+                            }
                         }
-                    }
-                }
+                    },
+                )
         val subscriber = reg.with(fmtLayer)
 
         val spanId =

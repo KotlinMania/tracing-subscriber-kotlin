@@ -21,6 +21,42 @@ data class FilterId(
 )
 
 /**
+ * Bitset mapping for per-layer filter results.
+ */
+data class FilterMap(
+    var bits: ULong = 0uL,
+) {
+    fun isEnabled(id: FilterId): Boolean = (bits and (1uL shl id.id.toInt())) == 0uL
+
+    fun disable(id: FilterId) {
+        bits = bits or (1uL shl id.id.toInt())
+    }
+
+    fun enable(id: FilterId) {
+        bits = bits and (1uL shl id.id.toInt()).inv()
+    }
+}
+
+class FilterState(
+    var enabled: FilterMap = FilterMap(),
+    var interest: Interest? = null,
+    val counters: DebugCounters = DebugCounters(),
+)
+
+class DebugCounters(
+    var inFilterPass: Int = 0,
+    var inCallsitePass: Int = 0,
+)
+
+class MagicPlfDowncastMarker(
+    val id: FilterId,
+)
+
+class FmtBitset(
+    val bits: ULong,
+)
+
+/**
  * A [Layer] that wraps an inner [Layer] and adds a [Filter] which controls what spans and events are enabled.
  */
 class Filtered<L : Layer<S>, F : Filter<S>, S : Subscriber>(

@@ -95,9 +95,6 @@ class Targets :
         return max
     }
 
-    override fun iterator(): Iterator<Pair<String, LevelFilter>> =
-        targetDirectives.map { (k, v) -> Pair(k, v) }.iterator()
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Targets) return false
@@ -115,30 +112,38 @@ class Targets :
         return list.joinToString(",")
     }
 
+    override fun iterator(): Iterator<Pair<String, LevelFilter>> =
+        targetDirectives.entries.map { it.key to it.value }.iterator()
+
+    fun iter(): Iter = Iter(iterator())
+
+    fun intoIter(): IntoIter = IntoIter(iterator())
+
     companion object {
-        fun parse(input: String): Targets {
+        fun new(): Targets = Targets()
+
+        fun parse(str: String): Targets {
             val targets = Targets()
-            val trimmed = input.trim()
+            val trimmed = str.trim()
             if (trimmed.isEmpty()) return targets
 
-            val directives = trimmed.split(',')
-            for (directive in directives) {
-                val part = directive.trim()
-                if (part.isEmpty()) continue
+            for (part in trimmed.split(',')) {
+                val partTrimmed = part.trim()
+                if (partTrimmed.isEmpty()) continue
 
-                if (part.contains('=')) {
-                    val split = part.split('=', limit = 2)
+                if (partTrimmed.contains('=')) {
+                    val split = partTrimmed.split('=', limit = 2)
                     val target = split[0].trim()
                     val levelStr = split[1].trim()
                     val level = LevelFilter.fromString(levelStr)
                     targets.withTarget(target, level)
                 } else {
                     // Could be a bare level or a target without level (defaults to TRACE in upstream)
-                    val levelOrNull = LevelFilter.fromStringOrNull(part)
+                    val levelOrNull = LevelFilter.fromStringOrNull(partTrimmed)
                     if (levelOrNull != null) {
                         targets.withDefault(levelOrNull)
                     } else {
-                        targets.withTarget(part, LevelFilter.TRACE)
+                        targets.withTarget(partTrimmed, LevelFilter.TRACE)
                     }
                 }
             }
@@ -146,3 +151,17 @@ class Targets :
         }
     }
 }
+
+/**
+ * An owning iterator over the target-level pairs of a [Targets] filter.
+ */
+class IntoIter internal constructor(
+    private val iterator: Iterator<Pair<String, LevelFilter>>,
+) : Iterator<Pair<String, LevelFilter>> by iterator
+
+/**
+ * An iterator over the target-level pairs of a [Targets] filter.
+ */
+class Iter internal constructor(
+    private val iterator: Iterator<Pair<String, LevelFilter>>,
+) : Iterator<Pair<String, LevelFilter>> by iterator

@@ -56,3 +56,10 @@ class Builder(
             filter
         }
 }
+
+/**
+ * Indicates that an error occurred while parsing a filter directive string.
+ */
+class ParseError(
+    val errorDescription: String = "Parse error",
+) : Exception(errorDescription)

@@ -11,8 +11,36 @@ import io.github.kotlinmania.tracingsubscriber.layer.Context
 import io.github.kotlinmania.tracingsubscriber.layer.Layer
 
 /**
+ * Kind of FromEnvError.
+ */
+sealed class FromEnvErrorKind {
+    data class Parse(
+        val error: ParseError,
+    ) : FromEnvErrorKind()
+
+    data class Env(
+        val errorDescription: String,
+    ) : FromEnvErrorKind()
+}
+
+typealias ErrorKind = FromEnvErrorKind
+
+/**
+ * Indicates that an error occurred when loading an EnvFilter from an environment variable.
+ */
+class FromEnvError(
+    val kind: FromEnvErrorKind,
+    val errorDescription: String =
+        when (kind) {
+            is FromEnvErrorKind.Parse -> "Parse error: ${kind.error.errorDescription}"
+            is FromEnvErrorKind.Env -> "Env error: ${kind.errorDescription}"
+        },
+) : Exception(errorDescription)
+
+/**
  * A [Layer] which filters spans and events based on a set of filter directives.
  */
+
 class EnvFilter(
     val builder: Builder = Builder(),
 ) : Filter<Subscriber>,

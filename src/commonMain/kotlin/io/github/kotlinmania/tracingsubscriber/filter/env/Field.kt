@@ -13,9 +13,45 @@ class BadName(
 /**
  * Match specification for a field.
  */
-data class FieldMatch(
+data class Match(
     val name: String,
     val value: ValueMatch? = null,
+)
+
+typealias FieldMatch = Match
+
+data class MatchPattern(
+    val pattern: Regex,
+)
+
+data class MatchDebug(
+    val pattern: String,
+)
+
+class Matcher(
+    var pattern: String,
+) {
+    fun writeStr(s: String): Boolean {
+        if (s.length > pattern.length) return false
+        if (pattern.startsWith(s)) {
+            pattern = pattern.substring(s.length)
+            return true
+        }
+        return false
+    }
+}
+
+/**
+ * Matched set of fields for a span.
+ */
+data class SpanMatch(
+    val fields: Map<String, ValueMatch> = emptyMap(),
+    val level: LevelFilter = LevelFilter.OFF,
+    var hasMatched: Boolean = false,
+)
+
+class MatchVisitor(
+    val inner: SpanMatch? = null,
 )
 
 /**

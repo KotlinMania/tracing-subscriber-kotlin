@@ -55,3 +55,43 @@ data class Directive(
         }
     }
 }
+
+/**
+ * A set of matching field criteria.
+ */
+data class MatchSet<T>(
+    val fieldMatches: List<T> = emptyList(),
+    val baseLevel: LevelFilter = LevelFilter.OFF,
+)
+
+typealias CallsiteMatcher = MatchSet<CallsiteMatch>
+typealias SpanMatcher = MatchSet<SpanMatch>
+
+/**
+ * State of directive parser.
+ */
+sealed class ParseState {
+    object Start : ParseState()
+
+    data class LevelOrTarget(
+        val start: Int,
+    ) : ParseState()
+
+    data class Span(
+        val spanStart: Int,
+    ) : ParseState()
+
+    data class Field(
+        val fieldStart: Int,
+    ) : ParseState()
+
+    object Fields : ParseState()
+
+    object Target : ParseState()
+
+    data class Level(
+        val levelStart: Int,
+    ) : ParseState()
+
+    object Complete : ParseState()
+}
