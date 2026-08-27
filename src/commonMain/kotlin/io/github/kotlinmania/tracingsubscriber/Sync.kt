@@ -1,5 +1,5 @@
 // port-lint: source sync.rs
-package io.github.kotlinmania.tracingsubscriber.sync
+package io.github.kotlinmania.tracingsubscriber
 
 /**
  * Reentrant read/write lock abstraction for Kotlin Multiplatform.

@@ -57,3 +57,12 @@ interface SubscriberExt : Subscriber
  */
 fun <S : Subscriber> S.with(layer: Layer<S>): LayeredSubscriber<Layer<S>, S> =
     LayeredSubscriber(layer, this)
+
+/**
+ * A layer that does nothing.
+ */
+class Identity : Layer<Subscriber>
+
+class NoneLayerMarker
+
+fun identity(): Identity = Identity()

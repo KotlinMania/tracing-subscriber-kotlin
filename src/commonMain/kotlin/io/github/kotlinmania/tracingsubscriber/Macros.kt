@@ -1,5 +1,5 @@
 // port-lint: source macros.rs
-package io.github.kotlinmania.tracingsubscriber.macros
+package io.github.kotlinmania.tracingsubscriber
 
 /**
  * Convenience helper for inline lock acquisition or returning a default value.

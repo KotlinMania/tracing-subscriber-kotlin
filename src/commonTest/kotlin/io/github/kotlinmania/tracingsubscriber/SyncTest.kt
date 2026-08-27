@@ -1,7 +1,6 @@
 // port-lint: tests sync.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.sync.RwLock
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

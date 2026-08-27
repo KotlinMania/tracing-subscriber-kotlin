@@ -1,8 +1,7 @@
 // port-lint: source util.rs
-package io.github.kotlinmania.tracingsubscriber.util
+package io.github.kotlinmania.tracingsubscriber
 
 import io.github.kotlinmania.tracingsubscriber.core.Subscriber
-import io.github.kotlinmania.tracingsubscriber.setGlobalDefault
 
 /**
  * Extension trait adding utility methods for subscriber initialization.

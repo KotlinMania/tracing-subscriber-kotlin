@@ -108,8 +108,10 @@ class TargetsTest {
 
     @Test
     fun targetsDefaultLevel() {
-        val targets = Targets.parse("crate1::mod1=error,crate1::mod2,crate2=debug,crate3=off")
-            .withDefault(LevelFilter.OFF)
+        val targets =
+            Targets
+                .parse("crate1::mod1=error,crate1::mod2,crate2=debug,crate3=off")
+                .withDefault(LevelFilter.OFF)
         assertEquals(LevelFilter.OFF, targets.defaultLevel())
     }
 

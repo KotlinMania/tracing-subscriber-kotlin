@@ -39,3 +39,8 @@ fun <T> withDefault(subscriber: Subscriber, block: () -> T): T {
         globalSubscriber = previous
     }
 }
+
+/**
+ * Marker interface for sealed traits.
+ */
+interface Sealed<T>

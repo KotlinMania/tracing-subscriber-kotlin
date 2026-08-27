@@ -39,3 +39,35 @@ class Extensions {
     val size: Int get() = map.size
     val isEmpty: Boolean get() = map.isEmpty()
 }
+
+/**
+ * A mutable view of a span's extensions.
+ */
+class ExtensionsMut(
+    private val extensions: Extensions,
+) {
+    fun <T : Any> get(key: KClass<T>): T? = extensions.get(key)
+
+    inline fun <reified T : Any> get(): T? = get(T::class)
+
+    fun <T : Any> insert(key: KClass<T>, value: T) {
+        val prev = extensions.insert(key, value)
+        check(prev == null) { "Extension of type ${key.simpleName} was already present" }
+    }
+
+    inline fun <reified T : Any> insert(value: T) = insert(T::class, value)
+
+    fun <T : Any> replace(key: KClass<T>, value: T): T? = extensions.insert(key, value)
+
+    inline fun <reified T : Any> replace(value: T): T? = replace(T::class, value)
+
+    fun <T : Any> remove(key: KClass<T>): T? = extensions.remove(key)
+
+    inline fun <reified T : Any> remove(): T? = remove(T::class)
+}
+
+class ExtensionsInner(
+    val extensions: Extensions = Extensions(),
+)
+
+class IdHasher
