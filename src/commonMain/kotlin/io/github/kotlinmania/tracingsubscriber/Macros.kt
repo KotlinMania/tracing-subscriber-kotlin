@@ -1,4 +1,4 @@
-// port-lint: source macros.rs
+// port-lint: source tracing-subscriber/src/macros.rs
 package io.github.kotlinmania.tracingsubscriber.macros
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source layer/layered.rs
+// port-lint: source tracing-subscriber/src/layer/layered.rs
 package io.github.kotlinmania.tracingsubscriber.layer
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes

@@ -1,4 +1,4 @@
-// port-lint: source filter/mod.rs
+// port-lint: source tracing-subscriber/src/filter/mod.rs
 package io.github.kotlinmania.tracingsubscriber.filter
 
 import io.github.kotlinmania.tracingsubscriber.core.Event
