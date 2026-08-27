@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/field/mod.rs
+// port-lint: source field/mod.rs
 package io.github.kotlinmania.tracingsubscriber.field
 
 /**
