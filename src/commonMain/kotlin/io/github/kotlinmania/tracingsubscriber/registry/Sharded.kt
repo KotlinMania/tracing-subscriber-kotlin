@@ -1,4 +1,4 @@
-// port-lint: source registry/sharded.rs
+// port-lint: source tracing-subscriber/src/registry/sharded.rs
 package io.github.kotlinmania.tracingsubscriber.registry
 
 import io.github.kotlinmania.tracingsubscriber.core.SpanId

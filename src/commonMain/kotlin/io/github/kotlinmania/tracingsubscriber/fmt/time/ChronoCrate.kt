@@ -1,4 +1,4 @@
-// port-lint: source fmt/time/chrono_crate.rs
+// port-lint: source tracing-subscriber/src/fmt/time/chrono_crate.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.time
 
 sealed class ChronoFmtType {

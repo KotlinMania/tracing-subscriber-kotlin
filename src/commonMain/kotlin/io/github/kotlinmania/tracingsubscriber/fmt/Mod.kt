@@ -1,4 +1,4 @@
-// port-lint: source fmt/mod.rs
+// port-lint: source tracing-subscriber/src/fmt/mod.rs
 package io.github.kotlinmania.tracingsubscriber.fmt
 
 import io.github.kotlinmania.tracingsubscriber.core.Subscriber

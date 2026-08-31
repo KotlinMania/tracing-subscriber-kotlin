@@ -1,4 +1,4 @@
-// port-lint: tests sync.rs
+// port-lint: tests tracing-subscriber/src/sync.rs
 package io.github.kotlinmania.tracingsubscriber
 
 import kotlin.test.Test
