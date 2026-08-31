@@ -1,4 +1,4 @@
-// port-lint: source registry/extensions.rs
+// port-lint: source tracing-subscriber/src/registry/extensions.rs
 package io.github.kotlinmania.tracingsubscriber.registry
 
 import kotlin.reflect.KClass
