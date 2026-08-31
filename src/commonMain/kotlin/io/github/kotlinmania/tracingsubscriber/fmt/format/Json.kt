@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/fmt/format/json.rs
+// port-lint: source fmt/format/json.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.format
 
 import io.github.kotlinmania.tracingsubscriber.core.Event

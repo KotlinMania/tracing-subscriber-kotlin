@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/fmt/time/mod.rs
+// port-lint: source fmt/time/mod.rs
 @file:OptIn(kotlin.time.ExperimentalTime::class)
 
 package io.github.kotlinmania.tracingsubscriber.fmt.time
@@ -29,6 +29,12 @@ class SystemTime : FormatTime {
         val now = Clock.System.now()
         writer.append(now.toString()).append(" ")
     }
+
+    companion object {
+        fun default(): SystemTime {
+            return SystemTime()
+        }
+    }
 }
 
 /**
@@ -42,8 +48,22 @@ class Uptime(
         val secs = elapsed.inWholeMilliseconds.toDouble() / 1000.0
         writer.append("${secs}s ")
     }
+
+    companion object {
+        fun default(): Uptime {
+            return Uptime()
+        }
+
+        fun from(mark: TimeMark): Uptime {
+            return Uptime(mark)
+        }
+    }
 }
 
-fun time(): SystemTime = SystemTime()
+fun time(): SystemTime {
+    return SystemTime()
+}
 
-fun uptime(): Uptime = Uptime()
+fun uptime(): Uptime {
+    return Uptime()
+}

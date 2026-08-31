@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/fmt/time/datetime.rs
+// port-lint: source fmt/time/datetime.rs
 @file:OptIn(kotlin.time.ExperimentalTime::class)
 
 package io.github.kotlinmania.tracingsubscriber.fmt.time
