@@ -4,13 +4,13 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 39/80 (48.8%)
-- **Function parity:** 264/1077 matched (target 428) — 24.5%
-- **Class/type parity:** 128/217 matched (target 188) — 59.0%
-- **Combined symbol parity:** 392/1294 matched (target 616) — 30.3%
-- **Average inline-code cosine:** 0.23 (function body across 29 matched files)
-- **Average documentation cosine:** 0.34 (doc text across 29 matched files)
-- **Cheat-zeroed Files:** 11
+- **Files Present:** 39/40 (97.5%)
+- **Function parity:** 232/730 matched (target 353) — 31.8%
+- **Class/type parity:** 113/166 matched (target 164) — 68.1%
+- **Combined symbol parity:** 345/896 matched (target 517) — 38.5%
+- **Average inline-code cosine:** 0.22 (function body across 30 matched files)
+- **Average documentation cosine:** 0.33 (doc text across 30 matched files)
+- **Cheat-zeroed Files:** 6
 - **Critical Issues:** 37 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
@@ -21,26 +21,13 @@ No incomplete high-dependency files detected.
 
 Critical missing files (>10 dependencies):
 
-1. **benches.fmt** (10 deps)
-   - Path: `tracing-subscriber/benches/fmt.rs`
-   - Essential for 10 other files
+No missing high-value files detected.
 
 ## Detailed Work Items
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. filter.level
-
-- **Target:** `filter.Level`
-- **Similarity:** 0.65
-- **Dependents:** 4
-- **Priority Score:** 4000303.5
-- **Functions:** 3/3 matched (target 9)
-- **Missing functions:** _none_
-- **Types:** 0/0 matched (target 3)
-- **Missing types:** _none_
-
-### 2. fmt.writer
+### 1. fmt.writer
 
 - **Target:** `writer.Writer`
 - **Similarity:** 0.18
@@ -53,19 +40,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Tests:** 0/9 matched
 - **Lint issues:** 1
 
-### 3. filter.targets
-
-- **Target:** `filter.Targets`
-- **Similarity:** 0.22
-- **Dependents:** 1
-- **Priority Score:** 1184107.9
-- **Functions:** 20/36 matched (target 34)
-- **Missing functions:** `interested`, `extend`, `from_iter`, `from_str`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `print_sz`, `test_roundtrip`
-- **Types:** 3/5 matched (target 4)
-- **Missing types:** `Err`, `Item`
-- **Tests:** 8/17 matched
-
-### 4. format.escape
+### 2. format.escape
 
 - **Target:** `format.Escape`
 - **Similarity:** 0.00
@@ -76,7 +51,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched (target 1)
 - **Missing types:** `Escape`
 
-### 5. fmt.fmt_layer
+### 3. filter.level
+
+- **Target:** `filter.Level`
+- **Similarity:** 0.65
+- **Dependents:** 1
+- **Priority Score:** 1000303.5
+- **Functions:** 3/3 matched (target 9)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 3)
+- **Missing types:** _none_
+
+### 4. fmt.fmt_layer
 
 - **Target:** `fmt.FmtLayer`
 - **Similarity:** 0.10
@@ -89,19 +75,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Tests:** 0/19 matched
 - **Lint issues:** 1
 
-### 6. fmt.mod
-
-- **Target:** `fmt.Mod [STUB]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 617010.0
-- **Functions:** 8/63 matched (target 18)
-- **Missing functions:** `layer`, `builder`, `new`, `default`, `register_callsite`, `enabled`, `new_span`, `record`, `record_follows_from`, `event_enabled`, `event`, `enter`, `exit`, `current_span`, `clone_span`, `try_close`, `max_level_hint`, `downcast_raw`, `span_data`, `try_init`, `from`, `with_timer`, `without_time`, `with_span_events`, `log_internal_errors`, `with_file`, `with_line_number`, `with_thread_names`, `with_thread_ids`, `compact`, `pretty`, `json`, `flatten_event`, `with_current_span`, `with_span_list`, `with_filter_reloading`, `reload_handle`, `fmt_fields`, `with_env_filter`, `with_max_level`, `with_test_writer`, `map_event_format`, `map_fmt_fields`, `map_writer`, `map_error`, `buf`, `write`, `flush`, `get_string`, `make_writer`, `impls`, `subscriber_downcasts`, `subscriber_downcasts_to_parts`, `is_lookup_span`, `assert_lookup_span`
-- **Types:** 1/7 matched (target 2)
-- **Missing types:** `Subscriber`, `Formatter`, `Data`, `MockWriter`, `MockMakeWriter`, `Writer`
-- **Tests:** 0/11 matched
-
-### 7. registry.sharded
+### 5. registry.sharded
 
 - **Target:** `registry.Sharded [ZERO]`
 - **Similarity:** 0.00
@@ -113,7 +87,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Registry`, `AssertionLayer`, `CloseLayer`, `CloseHandle`, `CloseState`, `SetRemoved`
 - **Tests:** 0/18 matched
 
-### 8. format.mod
+### 6. format.mod
 
 - **Target:** `format.Mod [STUB]`
 - **Similarity:** 0.00
@@ -125,7 +99,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Writer`, `Visitor`, `MockTime`
 - **Tests:** 0/22 matched
 
-### 9. env.mod
+### 7. env.mod
 
 - **Target:** `env.Mod [STUB]`
 - **Similarity:** 0.00
@@ -138,7 +112,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Tests:** 0/17 matched
 - **Lint issues:** 1
 
-### 10. env.field
+### 8. env.field
 
 - **Target:** `env.Field`
 - **Similarity:** 0.01
@@ -150,7 +124,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `MyStruct`
 - **Tests:** 0/2 matched
 
-### 11. layer_filters.mod
+### 9. layer_filters.mod
 
 - **Target:** `layerfilters.Mod [STUB]`
 - **Similarity:** 0.00
@@ -161,7 +135,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 7/8 matched (target 7)
 - **Missing types:** `FilterExt`
 
-### 12. format.json
+### 10. format.json
 
 - **Target:** `format.Json`
 - **Similarity:** 0.12
@@ -173,7 +147,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Json`, `MockTime`
 - **Tests:** 0/16 matched
 
-### 13. filter.directive
+### 11. filter.directive
 
 - **Target:** `filter.Directive`
 - **Similarity:** 0.08
@@ -185,7 +159,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FilterVec`, `Match`, `ParseErrorKind`, `Item`, `IntoIter`, `Err`
 - **Tests:** 0/1 matched
 
-### 14. env.directive
+### 12. env.directive
 
 - **Target:** `env.Directive`
 - **Similarity:** 0.21
@@ -197,32 +171,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Dynamics`, `Statics`, `Err`
 - **Tests:** 24/27 matched
 
-### 15. field.mod
+### 13. filter.targets
 
-- **Target:** `field.Mod [STUB]`
-- **Similarity:** 0.00
+- **Target:** `filter.Targets`
+- **Similarity:** 0.22
 - **Dependents:** 0
-- **Priority Score:** 162810.0
-- **Functions:** 6/14 matched (target 11)
-- **Missing functions:** `record`, `make_visitor`, `with`, `set_interest`, `metadata`, `new`, `finish`, `writer`
-- **Types:** 6/14 matched (target 7)
-- **Missing types:** `Visitor`, `MakeExtMarker`, `RecordFieldsMarker`, `TestAttrs1`, `TestAttrs2`, `TestCallsite1`, `MakeDebug`, `DebugVisitor`
-- **Lint issues:** 10
+- **Priority Score:** 184107.8
+- **Functions:** 20/36 matched (target 34)
+- **Missing functions:** `interested`, `extend`, `from_iter`, `from_str`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `print_sz`, `test_roundtrip`
+- **Types:** 3/5 matched (target 4)
+- **Missing types:** `Err`, `Item`
+- **Tests:** 8/17 matched
 
-### 16. registry.mod
-
-- **Target:** `registry.Mod [STUB]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 152310.0
-- **Functions:** 4/17 matched (target 26)
-- **Missing functions:** `next`, `id`, `metadata`, `name`, `fields`, `parent`, `extensions`, `extensions_mut`, `try_with_filter`, `with_filter`, `spanref_scope_iteration_order`, `on_enter`, `spanref_scope_fromroot_iteration_order`
-- **Types:** 4/6 matched (target 9)
-- **Missing types:** `Item`, `PrintingLayer`
-- **Tests:** 0/2 matched
-- **Lint issues:** 3
-
-### 17. format.pretty
+### 14. format.pretty
 
 - **Target:** `format.Pretty`
 - **Similarity:** 0.14
@@ -233,7 +194,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/4 matched (target 3)
 - **Missing types:** `Pretty`, `Visitor`
 
-### 18. registry.extensions
+### 15. registry.extensions
 
 - **Target:** `registry.Extensions`
 - **Similarity:** 0.16
@@ -245,7 +206,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `AnyMap`, `MyType`, `DropMePlease`, `DropMeTooPlease`
 - **Tests:** 0/3 matched
 
-### 19. layer.layered
+### 16. layer.layered
 
 - **Target:** `layer.Layered`
 - **Similarity:** 0.41
@@ -256,7 +217,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched (target 4)
 - **Missing types:** `Data`
 
-### 20. tracing-subscriber.reload
+### 17. reload
 
 - **Target:** `tracingsubscriber.Reload`
 - **Similarity:** 0.30
@@ -267,7 +228,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/4 matched (target 8)
 - **Missing types:** `Layer`
 
-### 21. filter.filter_fn
+### 18. filter.filter_fn
 
 - **Target:** `filter.FilterFn`
 - **Similarity:** 0.12
@@ -278,7 +239,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 
-### 22. layer.context
+### 19. layer.context
 
 - **Target:** `layer.Context`
 - **Similarity:** 0.35
@@ -289,7 +250,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 23. layer_filters.combinator
+### 20. layer_filters.combinator
 
 - **Target:** `layerfilters.Combinator`
 - **Similarity:** 0.19
@@ -300,19 +261,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched
 - **Missing types:** _none_
 
-### 24. layer.mod
-
-- **Target:** `layer.Mod [STUB]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 72710.0
-- **Functions:** 16/23 matched (target 17)
-- **Missing functions:** `on_register_dispatch`, `on_layer`, `boxed`, `downcast_raw`, `layer_is_none`, `subscriber_is_none`, `new`
-- **Types:** 4/4 matched
-- **Missing types:** _none_
-- **Lint issues:** 20
-
-### 25. env.builder
+### 21. env.builder
 
 - **Target:** `env.Builder`
 - **Similarity:** 0.21
@@ -323,7 +272,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
 
-### 26. time.time_crate
+### 22. time.time_crate
 
 - **Target:** `time.TimeCrate`
 - **Similarity:** 0.00
@@ -334,7 +283,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched
 - **Missing types:** _none_
 
-### 27. field.delimited
+### 23. field.delimited
 
 - **Target:** `field.Delimited`
 - **Similarity:** 0.42
@@ -346,7 +295,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Visitor`
 - **Tests:** 0/2 matched
 
-### 28. time.chrono_crate
+### 24. time.chrono_crate
 
 - **Target:** `time.ChronoCrate`
 - **Similarity:** 0.27
@@ -358,7 +307,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/4 matched
 
-### 29. field.display
+### 25. field.display
 
 - **Target:** `field.Display`
 - **Similarity:** 0.40
@@ -369,7 +318,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Visitor`
 
-### 30. tracing-subscriber.util
+### 26. util
 
 - **Target:** `tracingsubscriber.Util`
 - **Similarity:** 0.16
@@ -380,7 +329,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 
-### 31. field.debug
+### 27. field.debug
 
 - **Target:** `field.Debug`
 - **Similarity:** 0.49
@@ -391,7 +340,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Visitor`
 
-### 32. tracing-subscriber.sync
+### 28. sync
 
 - **Target:** `tracingsubscriber.Sync`
 - **Similarity:** 0.11
@@ -402,7 +351,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
 
-### 33. time.datetime
+### 29. time.datetime
 
 - **Target:** `time.Datetime`
 - **Similarity:** 0.00
@@ -414,29 +363,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 34. filter.mod
-
-- **Target:** `filter.Mod [STUB]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 30310.0
-- **Functions:** 0/3 matched (target 6)
-- **Missing functions:** `is_plf_downcast_marker`, `subscriber_has_plf`, `layer_has_plf`
-- **Types:** 0/0 matched (target 2)
-- **Missing types:** _none_
-
-### 35. time.mod
-
-- **Target:** `time.Mod [STUB]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 20810.0
-- **Functions:** 3/5 matched (target 6)
-- **Missing functions:** `default`, `from`
-- **Types:** 3/3 matched
-- **Missing types:** _none_
-
-### 36. registry.stack
+### 30. registry.stack
 
 - **Target:** `registry.Stack`
 - **Similarity:** 0.39
@@ -448,9 +375,20 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/2 matched
 
-### 37. tracing-subscriber.lib
+### 31. time.mod
 
-- **Target:** `tracingsubscriber.Lib [STUB]`
+- **Target:** `time.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 810.0
+- **Functions:** 5/5 matched (target 9)
+- **Missing functions:** _none_
+- **Types:** 3/3 matched
+- **Missing types:** _none_
+
+### 32. lib
+
+- **Target:** `tracingsubscriber.Lib [ZERO]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 110.0
@@ -479,6 +417,11 @@ do not treat them as the next implementation target by default.
 
 | Source | Target | Path |
 |--------|--------|------|
-| `tracing-subscriber.macros` | `tracingsubscriber.Macros` | `tracing-subscriber/src/macros` |
-| `tracing-subscriber.prelude` | `tracingsubscriber.Prelude` | `tracing-subscriber/src/prelude` |
+| `fmt.mod` | `fmt.Mod` | `fmt/mod` |
+| `field.mod` | `field.Mod` | `field/mod` |
+| `registry.mod` | `registry.Mod` | `registry/mod` |
+| `layer.mod` | `layer.Mod` | `layer/mod` |
+| `filter.mod` | `filter.Mod` | `filter/mod` |
+| `macros` | `tracingsubscriber.Macros` | `macros` |
+| `prelude` | `tracingsubscriber.Prelude` | `prelude` |
 

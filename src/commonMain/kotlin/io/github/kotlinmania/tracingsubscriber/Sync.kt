@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/sync.rs
+// port-lint: source sync.rs
 package io.github.kotlinmania.tracingsubscriber
 
 /**

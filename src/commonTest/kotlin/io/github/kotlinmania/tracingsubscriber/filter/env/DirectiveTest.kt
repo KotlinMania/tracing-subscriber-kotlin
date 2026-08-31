@@ -1,4 +1,4 @@
-// port-lint: tests tracing-subscriber/src/filter/env/directive.rs
+// port-lint: tests filter/env/directive.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
 import io.github.kotlinmania.tracingsubscriber.core.Level
