@@ -1,4 +1,4 @@
-// port-lint: source fmt/format/pretty.rs
+// port-lint: source tracing-subscriber/src/fmt/format/pretty.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.format
 
 import io.github.kotlinmania.tracingsubscriber.core.Event

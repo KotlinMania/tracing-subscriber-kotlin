@@ -1,4 +1,4 @@
-// port-lint: source fmt/time/time_crate.rs
+// port-lint: source tracing-subscriber/src/fmt/time/time_crate.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.time
 
 class UtcTime : FormatTime by DateTimeFormat()

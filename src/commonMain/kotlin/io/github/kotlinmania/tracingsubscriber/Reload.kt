@@ -1,4 +1,4 @@
-// port-lint: source reload.rs
+// port-lint: source tracing-subscriber/src/reload.rs
 package io.github.kotlinmania.tracingsubscriber
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes
