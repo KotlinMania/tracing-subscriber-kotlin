@@ -1,4 +1,4 @@
-// port-lint: tests filter/filter_fn.rs
+// port-lint: tests tracing-subscriber/src/filter/filter_fn.rs
 package io.github.kotlinmania.tracingsubscriber
 
 import io.github.kotlinmania.tracingsubscriber.core.Interest

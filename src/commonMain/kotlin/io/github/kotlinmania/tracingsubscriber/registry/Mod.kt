@@ -1,4 +1,4 @@
-// port-lint: source registry/mod.rs
+// port-lint: source tracing-subscriber/src/registry/mod.rs
 package io.github.kotlinmania.tracingsubscriber.registry
 
 import io.github.kotlinmania.tracingsubscriber.core.Attributes
