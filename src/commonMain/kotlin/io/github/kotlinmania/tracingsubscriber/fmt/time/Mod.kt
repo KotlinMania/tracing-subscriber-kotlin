@@ -31,9 +31,7 @@ class SystemTime : FormatTime {
     }
 
     companion object {
-        fun default(): SystemTime {
-            return SystemTime()
-        }
+        fun default(): SystemTime = SystemTime()
     }
 }
 
@@ -50,20 +48,12 @@ class Uptime(
     }
 
     companion object {
-        fun default(): Uptime {
-            return Uptime()
-        }
+        fun default(): Uptime = Uptime()
 
-        fun from(mark: TimeMark): Uptime {
-            return Uptime(mark)
-        }
+        fun from(mark: TimeMark): Uptime = Uptime(mark)
     }
 }
 
-fun time(): SystemTime {
-    return SystemTime()
-}
+fun time(): SystemTime = SystemTime()
 
-fun uptime(): Uptime {
-    return Uptime()
-}
+fun uptime(): Uptime = Uptime()
