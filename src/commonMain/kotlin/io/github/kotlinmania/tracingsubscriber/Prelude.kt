@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/prelude.rs
+// port-lint: source prelude.rs
 package io.github.kotlinmania.tracingsubscriber
 
 import io.github.kotlinmania.tracingsubscriber.field.MakeExt

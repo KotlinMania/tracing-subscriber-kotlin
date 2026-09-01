@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/layer/context.rs
+// port-lint: source layer/context.rs
 package io.github.kotlinmania.tracingsubscriber.layer
 
 import io.github.kotlinmania.tracingsubscriber.core.Event
