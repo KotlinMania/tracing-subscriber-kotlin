@@ -4,13 +4,13 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 39/40 (97.5%)
-- **Function parity:** 232/730 matched (target 353) — 31.8%
-- **Class/type parity:** 113/166 matched (target 164) — 68.1%
-- **Combined symbol parity:** 345/896 matched (target 517) — 38.5%
+- **Files Present:** 39/80 (48.8%)
+- **Function parity:** 266/1077 matched (target 428) — 24.7%
+- **Class/type parity:** 127/216 matched (target 184) — 58.8%
+- **Combined symbol parity:** 393/1293 matched (target 612) — 30.4%
 - **Average inline-code cosine:** 0.23 (function body across 29 matched files)
 - **Average documentation cosine:** 0.34 (doc text across 29 matched files)
-- **Cheat-zeroed Files:** 6
+- **Cheat-zeroed Files:** 10
 - **Critical Issues:** 37 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
@@ -21,15 +21,28 @@ No incomplete high-dependency files detected.
 
 Critical missing files (>10 dependencies):
 
-No missing high-value files detected.
+1. **benches.fmt** (10 deps)
+   - Path: `tracing-subscriber/benches/fmt.rs`
+   - Essential for 10 other files
 
 ## Detailed Work Items
 
 Every matched file is listed below with function and type symbol parity.
 
-### 1. fmt.writer
+### 1. filter.level
 
-- **Target:** `writer.Writer [PROVENANCE-FALLBACK]`
+- **Target:** `filter.Level`
+- **Similarity:** 0.65
+- **Dependents:** 4
+- **Priority Score:** 4000303.5
+- **Functions:** 3/3 matched (target 9)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 3)
+- **Missing types:** _none_
+
+### 2. fmt.writer
+
+- **Target:** `writer.Writer`
 - **Similarity:** 0.18
 - **Dependents:** 2
 - **Priority Score:** 2194308.2
@@ -38,13 +51,23 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 16/16 matched (target 20)
 - **Missing types:** _none_
 - **Tests:** 0/9 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/writer.rs` vs expected `fmt/writer.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/writer.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/writer.rs`)
-- **Lint issues:** 2
+- **Lint issues:** 1
 
-### 2. format.escape
+### 3. filter.targets
 
-- **Target:** `format.Escape [PROVENANCE-FALLBACK]`
+- **Target:** `filter.Targets`
+- **Similarity:** 0.22
+- **Dependents:** 1
+- **Priority Score:** 1184107.9
+- **Functions:** 20/36 matched (target 34)
+- **Missing functions:** `interested`, `extend`, `from_iter`, `from_str`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `print_sz`, `test_roundtrip`
+- **Types:** 3/5 matched (target 4)
+- **Missing types:** `Err`, `Item`
+- **Tests:** 8/17 matched
+
+### 4. format.escape
+
+- **Target:** `format.Escape`
 - **Similarity:** 0.00
 - **Dependents:** 1
 - **Priority Score:** 1030410.0
@@ -52,29 +75,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `write_str`, `fmt`
 - **Types:** 1/2 matched (target 1)
 - **Missing types:** `Escape`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/format/escape.rs` vs expected `fmt/format/escape.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/format/escape.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/format/escape.rs`)
-- **Lint issues:** 1
 
-### 3. filter.level
+### 5. fmt.fmt_layer
 
-- **Target:** `filter.Level [PROVENANCE-FALLBACK]`
-- **Similarity:** 0.65
-- **Dependents:** 1
-- **Priority Score:** 1000303.5
-- **Functions:** 3/3 matched (target 9)
-- **Missing functions:** _none_
-- **Types:** 0/0 matched (target 3)
-- **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/level.rs` vs expected `filter/level.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:tracing-subscriber/src/filter/level.rs` vs expected `filter/level.rs`
-- **Proposed provenance header:** `// port-lint: source filter/level.rs` (current: `// port-lint: source tracing-subscriber/src/filter/level.rs`)
-- **Proposed provenance header:** `// port-lint: tests filter/level.rs` (current: `// port-lint: tests tracing-subscriber/src/filter/level.rs`)
-- **Lint issues:** 2
-
-### 4. fmt.fmt_layer
-
-- **Target:** `fmt.FmtLayer [PROVENANCE-FALLBACK]`
+- **Target:** `fmt.FmtLayer`
 - **Similarity:** 0.10
 - **Dependents:** 0
 - **Priority Score:** 658009.1
@@ -83,13 +87,23 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/9 matched (target 4)
 - **Missing types:** `Target`, `AlwaysError`, `MakeByTarget`, `Writer`, `RestoreEnvVar`
 - **Tests:** 0/19 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/fmt_layer.rs` vs expected `fmt/fmt_layer.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/fmt_layer.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/fmt_layer.rs`)
-- **Lint issues:** 2
+- **Lint issues:** 1
 
-### 5. registry.sharded
+### 6. fmt.mod
 
-- **Target:** `registry.Sharded [ZERO] [PROVENANCE-FALLBACK]`
+- **Target:** `fmt.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 617010.0
+- **Functions:** 8/63 matched (target 18)
+- **Missing functions:** `layer`, `builder`, `new`, `default`, `register_callsite`, `enabled`, `new_span`, `record`, `record_follows_from`, `event_enabled`, `event`, `enter`, `exit`, `current_span`, `clone_span`, `try_close`, `max_level_hint`, `downcast_raw`, `span_data`, `try_init`, `from`, `with_timer`, `without_time`, `with_span_events`, `log_internal_errors`, `with_file`, `with_line_number`, `with_thread_names`, `with_thread_ids`, `compact`, `pretty`, `json`, `flatten_event`, `with_current_span`, `with_span_list`, `with_filter_reloading`, `reload_handle`, `fmt_fields`, `with_env_filter`, `with_max_level`, `with_test_writer`, `map_event_format`, `map_fmt_fields`, `map_writer`, `map_error`, `buf`, `write`, `flush`, `get_string`, `make_writer`, `impls`, `subscriber_downcasts`, `subscriber_downcasts_to_parts`, `is_lookup_span`, `assert_lookup_span`
+- **Types:** 1/7 matched (target 2)
+- **Missing types:** `Subscriber`, `Formatter`, `Data`, `MockWriter`, `MockMakeWriter`, `Writer`
+- **Tests:** 0/11 matched
+
+### 7. registry.sharded
+
+- **Target:** `registry.Sharded [ZERO]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 555910.0
@@ -98,13 +112,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/10 matched (target 5)
 - **Missing types:** `Registry`, `AssertionLayer`, `CloseLayer`, `CloseHandle`, `CloseState`, `SetRemoved`
 - **Tests:** 0/18 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/registry/sharded.rs` vs expected `registry/sharded.rs`
-- **Proposed provenance header:** `// port-lint: source registry/sharded.rs` (current: `// port-lint: source tracing-subscriber/src/registry/sharded.rs`)
-- **Lint issues:** 1
 
-### 6. format.mod
+### 8. format.mod
 
-- **Target:** `format.Mod [STUB] [PROVENANCE-FALLBACK]`
+- **Target:** `format.Mod [STUB]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 549110.0
@@ -113,13 +124,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 17/20 matched (target 19)
 - **Missing types:** `Writer`, `Visitor`, `MockTime`
 - **Tests:** 0/22 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/format/mod.rs` vs expected `fmt/format/mod.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/format/mod.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/format/mod.rs`)
-- **Lint issues:** 1
 
-### 7. env.mod
+### 9. env.mod
 
-- **Target:** `env.Mod [STUB] [PROVENANCE-FALLBACK]`
+- **Target:** `env.Mod [STUB]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 394810.0
@@ -128,13 +136,11 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/7 matched (target 6)
 - **Missing types:** `FieldMap`, `Err`, `NoSubscriber`, `Cs`
 - **Tests:** 0/17 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/env/mod.rs` vs expected `filter/env/mod.rs`
-- **Proposed provenance header:** `// port-lint: source filter/env/mod.rs` (current: `// port-lint: source tracing-subscriber/src/filter/env/mod.rs`)
-- **Lint issues:** 2
+- **Lint issues:** 1
 
-### 8. env.field
+### 10. env.field
 
-- **Target:** `env.Field [PROVENANCE-FALLBACK]`
+- **Target:** `env.Field`
 - **Similarity:** 0.01
 - **Dependents:** 0
 - **Priority Score:** 314109.8
@@ -143,13 +149,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 9/11 matched (target 16)
 - **Missing types:** `Err`, `MyStruct`
 - **Tests:** 0/2 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/env/field.rs` vs expected `filter/env/field.rs`
-- **Proposed provenance header:** `// port-lint: source filter/env/field.rs` (current: `// port-lint: source tracing-subscriber/src/filter/env/field.rs`)
-- **Lint issues:** 1
 
-### 9. layer_filters.mod
+### 11. layer_filters.mod
 
-- **Target:** `layerfilters.Mod [STUB] [PROVENANCE-FALLBACK]`
+- **Target:** `layerfilters.Mod [STUB]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 294910.0
@@ -157,13 +160,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `and`, `or`, `not`, `boxed`, `callsite_enabled`, `id`, `did_enable`, `filter`, `filter_mut`, `inner`, `inner_mut`, `on_register_dispatch`, `on_layer`, `downcast_raw`, `fmt`, `disabled`, `none`, `is_disabled`, `set`, `any_enabled`, `add_interest`, `clear_enabled`, `take_interest`, `filter_map`, `is_plf_downcast_marker`, `subscriber_has_plf`, `layer_has_plf`
 - **Types:** 7/8 matched (target 7)
 - **Missing types:** `FilterExt`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/layer_filters/mod.rs` vs expected `filter/layer_filters/mod.rs`
-- **Proposed provenance header:** `// port-lint: source filter/layer_filters/mod.rs` (current: `// port-lint: source tracing-subscriber/src/filter/layer_filters/mod.rs`)
-- **Lint issues:** 1
 
-### 10. format.json
+### 12. format.json
 
-- **Target:** `format.Json [PROVENANCE-FALLBACK]`
+- **Target:** `format.Json`
 - **Similarity:** 0.12
 - **Dependents:** 0
 - **Priority Score:** 294208.8
@@ -172,13 +172,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/6 matched (target 5)
 - **Missing types:** `Json`, `MockTime`
 - **Tests:** 0/16 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/format/json.rs` vs expected `fmt/format/json.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/format/json.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/format/json.rs`)
-- **Lint issues:** 1
 
-### 11. filter.directive
+### 13. filter.directive
 
-- **Target:** `filter.Directive [PROVENANCE-FALLBACK]`
+- **Target:** `filter.Directive`
 - **Similarity:** 0.08
 - **Dependents:** 0
 - **Priority Score:** 283409.2
@@ -187,13 +184,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/9 matched (target 3)
 - **Missing types:** `FilterVec`, `Match`, `ParseErrorKind`, `Item`, `IntoIter`, `Err`
 - **Tests:** 0/1 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/directive.rs` vs expected `filter/directive.rs`
-- **Proposed provenance header:** `// port-lint: source filter/directive.rs` (current: `// port-lint: source tracing-subscriber/src/filter/directive.rs`)
-- **Lint issues:** 1
 
-### 12. env.directive
+### 14. env.directive
 
-- **Target:** `env.Directive [PROVENANCE-FALLBACK]`
+- **Target:** `env.Directive`
 - **Similarity:** 0.21
 - **Dependents:** 0
 - **Priority Score:** 225607.9
@@ -202,32 +196,35 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/8 matched (target 14)
 - **Missing types:** `Dynamics`, `Statics`, `Err`
 - **Tests:** 24/27 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/env/directive.rs` vs expected `filter/env/directive.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:tracing-subscriber/src/filter/env/directive.rs` vs expected `filter/env/directive.rs`
-- **Proposed provenance header:** `// port-lint: source filter/env/directive.rs` (current: `// port-lint: source tracing-subscriber/src/filter/env/directive.rs`)
-- **Proposed provenance header:** `// port-lint: tests filter/env/directive.rs` (current: `// port-lint: tests tracing-subscriber/src/filter/env/directive.rs`)
-- **Lint issues:** 2
 
-### 13. filter.targets
+### 15. field.mod
 
-- **Target:** `filter.Targets [PROVENANCE-FALLBACK]`
-- **Similarity:** 0.22
+- **Target:** `field.Mod [STUB]`
+- **Similarity:** 0.00
 - **Dependents:** 0
-- **Priority Score:** 184107.8
-- **Functions:** 20/36 matched (target 34)
-- **Missing functions:** `interested`, `extend`, `from_iter`, `from_str`, `fmt`, `next`, `size_hint`, `expect_parse`, `expect_parse_ralith`, `expect_parse_level_directives`, `parse_ralith`, `parse_ralith_uc`, `parse_ralith_mixed`, `expect_parse_valid`, `print_sz`, `test_roundtrip`
-- **Types:** 3/5 matched (target 4)
-- **Missing types:** `Err`, `Item`
-- **Tests:** 8/17 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/targets.rs` vs expected `filter/targets.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:tracing-subscriber/src/filter/targets.rs` vs expected `filter/targets.rs`
-- **Proposed provenance header:** `// port-lint: source filter/targets.rs` (current: `// port-lint: source tracing-subscriber/src/filter/targets.rs`)
-- **Proposed provenance header:** `// port-lint: tests filter/targets.rs` (current: `// port-lint: tests tracing-subscriber/src/filter/targets.rs`)
-- **Lint issues:** 2
+- **Priority Score:** 162810.0
+- **Functions:** 6/14 matched (target 11)
+- **Missing functions:** `record`, `make_visitor`, `with`, `set_interest`, `metadata`, `new`, `finish`, `writer`
+- **Types:** 6/14 matched (target 7)
+- **Missing types:** `Visitor`, `MakeExtMarker`, `RecordFieldsMarker`, `TestAttrs1`, `TestAttrs2`, `TestCallsite1`, `MakeDebug`, `DebugVisitor`
+- **Lint issues:** 10
 
-### 14. format.pretty
+### 16. registry.mod
 
-- **Target:** `format.Pretty [PROVENANCE-FALLBACK]`
+- **Target:** `registry.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 152310.0
+- **Functions:** 4/17 matched (target 26)
+- **Missing functions:** `next`, `id`, `metadata`, `name`, `fields`, `parent`, `extensions`, `extensions_mut`, `try_with_filter`, `with_filter`, `spanref_scope_iteration_order`, `on_enter`, `spanref_scope_fromroot_iteration_order`
+- **Types:** 4/6 matched (target 9)
+- **Missing types:** `Item`, `PrintingLayer`
+- **Tests:** 0/2 matched
+- **Lint issues:** 3
+
+### 17. format.pretty
+
+- **Target:** `format.Pretty`
 - **Similarity:** 0.14
 - **Dependents:** 0
 - **Priority Score:** 142108.6
@@ -235,13 +232,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `default`, `style_for`, `with_source_location`, `add_fields`, `with_ansi`, `make_visitor`, `with_style`, `write_padded`, `bold`, `record_error`, `finish`, `writer`
 - **Types:** 2/4 matched (target 3)
 - **Missing types:** `Pretty`, `Visitor`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/format/pretty.rs` vs expected `fmt/format/pretty.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/format/pretty.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/format/pretty.rs`)
-- **Lint issues:** 1
 
-### 15. registry.extensions
+### 18. registry.extensions
 
-- **Target:** `registry.Extensions [PROVENANCE-FALLBACK]`
+- **Target:** `registry.Extensions`
 - **Similarity:** 0.16
 - **Dependents:** 0
 - **Priority Score:** 132208.4
@@ -250,13 +244,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/8 matched (target 4)
 - **Missing types:** `AnyMap`, `MyType`, `DropMePlease`, `DropMeTooPlease`
 - **Tests:** 0/3 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/registry/extensions.rs` vs expected `registry/extensions.rs`
-- **Proposed provenance header:** `// port-lint: source registry/extensions.rs` (current: `// port-lint: source tracing-subscriber/src/registry/extensions.rs`)
-- **Lint issues:** 1
 
-### 16. layer.layered
+### 19. layer.layered
 
-- **Target:** `layer.Layered [PROVENANCE-FALLBACK]`
+- **Target:** `layer.Layered`
 - **Similarity:** 0.41
 - **Dependents:** 0
 - **Priority Score:** 123605.9
@@ -264,15 +255,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `is`, `downcast_ref`, `on_register_dispatch`, `drop_span`, `downcast_raw`, `on_layer`, `ctx`, `new`, `pick_interest`, `pick_level_hint`, `fmt`
 - **Types:** 1/2 matched (target 4)
 - **Missing types:** `Data`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/layer/layered.rs` vs expected `layer/layered.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:tracing-subscriber/src/layer/layered.rs` vs expected `layer/layered.rs`
-- **Proposed provenance header:** `// port-lint: source layer/layered.rs` (current: `// port-lint: source tracing-subscriber/src/layer/layered.rs`)
-- **Proposed provenance header:** `// port-lint: tests layer/layered.rs` (current: `// port-lint: tests tracing-subscriber/src/layer/layered.rs`)
-- **Lint issues:** 2
 
-### 17. reload
+### 20. tracing-subscriber.reload
 
-- **Target:** `tracingsubscriber.Reload [PROVENANCE-FALLBACK]`
+- **Target:** `tracingsubscriber.Reload`
 - **Similarity:** 0.30
 - **Dependents:** 0
 - **Priority Score:** 123107.0
@@ -280,13 +266,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `on_register_dispatch`, `on_layer`, `downcast_raw`, `callsite_enabled`, `handle`, `clone_current`, `clone`, `poisoned`, `is_poisoned`, `is_dropped`, `fmt`
 - **Types:** 3/4 matched (target 8)
 - **Missing types:** `Layer`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/reload.rs` vs expected `reload.rs`
-- **Proposed provenance header:** `// port-lint: source reload.rs` (current: `// port-lint: source tracing-subscriber/src/reload.rs`)
-- **Lint issues:** 1
 
-### 18. filter.filter_fn
+### 21. filter.filter_fn
 
-- **Target:** `filter.FilterFn [PROVENANCE-FALLBACK]`
+- **Target:** `filter.FilterFn`
 - **Similarity:** 0.12
 - **Dependents:** 0
 - **Priority Score:** 111708.8
@@ -294,15 +277,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `with_max_level_hint`, `is_enabled`, `is_callsite_enabled`, `is_below_max_level`, `register_callsite`, `from`, `fmt`, `with_callsite_filter`, `default_callsite_enabled`, `clone`
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/filter_fn.rs` vs expected `filter/filter_fn.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:tracing-subscriber/src/filter/filter_fn.rs` vs expected `filter/filter_fn.rs`
-- **Proposed provenance header:** `// port-lint: source filter/filter_fn.rs` (current: `// port-lint: source tracing-subscriber/src/filter/filter_fn.rs`)
-- **Proposed provenance header:** `// port-lint: tests filter/filter_fn.rs` (current: `// port-lint: tests tracing-subscriber/src/filter/filter_fn.rs`)
-- **Lint issues:** 2
 
-### 19. layer.context
+### 22. layer.context
 
-- **Target:** `layer.Context [PROVENANCE-FALLBACK]`
+- **Target:** `layer.Context`
 - **Similarity:** 0.35
 - **Dependents:** 0
 - **Priority Score:** 91906.5
@@ -310,13 +288,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `span`, `lookup_current_filtered`, `with_filter`, `is_enabled_for`, `if_enabled_for`, `is_enabled_inner`, `none`, `clone`
 - **Types:** 1/1 matched
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/layer/context.rs` vs expected `layer/context.rs`
-- **Proposed provenance header:** `// port-lint: source layer/context.rs` (current: `// port-lint: source tracing-subscriber/src/layer/context.rs`)
-- **Lint issues:** 1
 
-### 20. layer_filters.combinator
+### 23. layer_filters.combinator
 
-- **Target:** `layerfilters.Combinator [PROVENANCE-FALLBACK]`
+- **Target:** `layerfilters.Combinator`
 - **Similarity:** 0.19
 - **Dependents:** 0
 - **Priority Score:** 81508.1
@@ -324,13 +299,22 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `on_new_span`, `on_record`, `on_enter`, `on_exit`, `on_close`, `clone`, `fmt`
 - **Types:** 3/3 matched
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/layer_filters/combinator.rs` vs expected `filter/layer_filters/combinator.rs`
-- **Proposed provenance header:** `// port-lint: source filter/layer_filters/combinator.rs` (current: `// port-lint: source tracing-subscriber/src/filter/layer_filters/combinator.rs`)
-- **Lint issues:** 1
 
-### 21. env.builder
+### 24. layer.mod
 
-- **Target:** `env.Builder [PROVENANCE-FALLBACK]`
+- **Target:** `layer.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 72710.0
+- **Functions:** 16/23 matched (target 17)
+- **Missing functions:** `on_register_dispatch`, `on_layer`, `boxed`, `downcast_raw`, `layer_is_none`, `subscriber_is_none`, `new`
+- **Types:** 4/4 matched
+- **Missing types:** _none_
+- **Lint issues:** 20
+
+### 25. env.builder
+
+- **Target:** `env.Builder`
 - **Similarity:** 0.21
 - **Dependents:** 0
 - **Priority Score:** 71207.9
@@ -338,13 +322,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `with_env_var`, `from_env_lossy`, `from_env`, `try_from_env`, `from_directives`, `env_var_name`, `default`
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/filter/env/builder.rs` vs expected `filter/env/builder.rs`
-- **Proposed provenance header:** `// port-lint: source filter/env/builder.rs` (current: `// port-lint: source tracing-subscriber/src/filter/env/builder.rs`)
-- **Lint issues:** 1
 
-### 22. time.time_crate
+### 26. time.time_crate
 
-- **Target:** `time.TimeCrate [PROVENANCE-FALLBACK]`
+- **Target:** `time.TimeCrate`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 60910.0
@@ -352,13 +333,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `rfc_3339`, `new`, `format_time`, `default`, `local_rfc_3339`, `format_datetime`
 - **Types:** 3/3 matched
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/time/time_crate.rs` vs expected `fmt/time/time_crate.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/time/time_crate.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/time/time_crate.rs`)
-- **Lint issues:** 1
 
-### 23. field.delimited
+### 27. field.delimited
 
-- **Target:** `field.Delimited [PROVENANCE-FALLBACK]`
+- **Target:** `field.Delimited`
 - **Similarity:** 0.42
 - **Dependents:** 0
 - **Priority Score:** 51505.8
@@ -367,13 +345,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/3 matched (target 2)
 - **Missing types:** `Visitor`
 - **Tests:** 0/2 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/field/delimited.rs` vs expected `field/delimited.rs`
-- **Proposed provenance header:** `// port-lint: source field/delimited.rs` (current: `// port-lint: source tracing-subscriber/src/field/delimited.rs`)
-- **Lint issues:** 1
 
-### 24. time.chrono_crate
+### 28. time.chrono_crate
 
-- **Target:** `time.ChronoCrate [PROVENANCE-FALLBACK]`
+- **Target:** `time.ChronoCrate`
 - **Similarity:** 0.27
 - **Dependents:** 0
 - **Priority Score:** 51007.3
@@ -382,13 +357,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched (target 5)
 - **Missing types:** _none_
 - **Tests:** 0/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/time/chrono_crate.rs` vs expected `fmt/time/chrono_crate.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/time/chrono_crate.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/time/chrono_crate.rs`)
-- **Lint issues:** 1
 
-### 25. field.display
+### 29. field.display
 
-- **Target:** `field.Display [PROVENANCE-FALLBACK]`
+- **Target:** `field.Display`
 - **Similarity:** 0.40
 - **Dependents:** 0
 - **Priority Score:** 41206.0
@@ -396,13 +368,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `finish`, `writer`
 - **Types:** 1/2 matched
 - **Missing types:** `Visitor`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/field/display.rs` vs expected `field/display.rs`
-- **Proposed provenance header:** `// port-lint: source field/display.rs` (current: `// port-lint: source tracing-subscriber/src/field/display.rs`)
-- **Lint issues:** 1
 
-### 26. util
+### 30. tracing-subscriber.util
 
-- **Target:** `tracingsubscriber.Util [PROVENANCE-FALLBACK]`
+- **Target:** `tracingsubscriber.Util`
 - **Similarity:** 0.16
 - **Dependents:** 0
 - **Priority Score:** 40808.4
@@ -410,13 +379,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `set_default`, `new`, `fmt`, `source`
 - **Types:** 2/2 matched
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/util.rs` vs expected `util.rs`
-- **Proposed provenance header:** `// port-lint: source util.rs` (current: `// port-lint: source tracing-subscriber/src/util.rs`)
-- **Lint issues:** 1
 
-### 27. field.debug
+### 31. field.debug
 
-- **Target:** `field.Debug [PROVENANCE-FALLBACK]`
+- **Target:** `field.Debug`
 - **Similarity:** 0.49
 - **Dependents:** 0
 - **Priority Score:** 31205.1
@@ -424,13 +390,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `finish`, `writer`
 - **Types:** 1/2 matched
 - **Missing types:** `Visitor`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/field/debug.rs` vs expected `field/debug.rs`
-- **Proposed provenance header:** `// port-lint: source field/debug.rs` (current: `// port-lint: source tracing-subscriber/src/field/debug.rs`)
-- **Lint issues:** 1
 
-### 28. sync
+### 32. tracing-subscriber.sync
 
-- **Target:** `tracingsubscriber.Sync [PROVENANCE-FALLBACK]`
+- **Target:** `tracingsubscriber.Sync`
 - **Similarity:** 0.11
 - **Dependents:** 0
 - **Priority Score:** 30708.9
@@ -438,15 +401,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `try_read`, `default`
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/sync.rs` vs expected `sync.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:tracing-subscriber/src/sync.rs` vs expected `sync.rs`
-- **Proposed provenance header:** `// port-lint: source sync.rs` (current: `// port-lint: source tracing-subscriber/src/sync.rs`)
-- **Proposed provenance header:** `// port-lint: tests sync.rs` (current: `// port-lint: tests tracing-subscriber/src/sync.rs`)
-- **Lint issues:** 2
 
-### 29. time.datetime
+### 33. time.datetime
 
-- **Target:** `time.Datetime [PROVENANCE-FALLBACK]`
+- **Target:** `time.Datetime`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 30410.0
@@ -455,13 +413,21 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 2)
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/time/datetime.rs` vs expected `fmt/time/datetime.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/time/datetime.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/time/datetime.rs`)
-- **Lint issues:** 1
 
-### 30. registry.stack
+### 34. filter.mod
 
-- **Target:** `registry.Stack [PROVENANCE-FALLBACK]`
+- **Target:** `filter.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 30310.0
+- **Functions:** 0/3 matched (target 6)
+- **Missing functions:** `is_plf_downcast_marker`, `subscriber_has_plf`, `layer_has_plf`
+- **Types:** 0/0 matched (target 2)
+- **Missing types:** _none_
+
+### 35. registry.stack
+
+- **Target:** `registry.Stack`
 - **Similarity:** 0.39
 - **Dependents:** 0
 - **Priority Score:** 20806.1
@@ -470,13 +436,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 - **Tests:** 0/2 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/registry/stack.rs` vs expected `registry/stack.rs`
-- **Proposed provenance header:** `// port-lint: source registry/stack.rs` (current: `// port-lint: source tracing-subscriber/src/registry/stack.rs`)
-- **Lint issues:** 1
 
-### 31. time.mod
+### 36. time.mod
 
-- **Target:** `time.Mod [STUB] [PROVENANCE-FALLBACK]`
+- **Target:** `time.Mod [STUB]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 810.0
@@ -484,23 +447,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 3/3 matched
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/fmt/time/mod.rs` vs expected `fmt/time/mod.rs`
-- **Proposed provenance header:** `// port-lint: source fmt/time/mod.rs` (current: `// port-lint: source tracing-subscriber/src/fmt/time/mod.rs`)
-- **Lint issues:** 1
-
-### 32. lib
-
-- **Target:** `tracingsubscriber.Lib [STUB] [PROVENANCE-FALLBACK]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 110.0
-- **Functions:** 0/0 matched (target 3)
-- **Missing functions:** _none_
-- **Types:** 1/1 matched (target 4)
-- **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tracing-subscriber/src/lib.rs` vs expected `lib.rs`
-- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source tracing-subscriber/src/lib.rs`)
-- **Lint issues:** 1
 
 ## Success Criteria
 
@@ -522,11 +468,7 @@ do not treat them as the next implementation target by default.
 
 | Source | Target | Path |
 |--------|--------|------|
-| `fmt.mod` | `fmt.Mod` | `fmt/mod` |
-| `field.mod` | `field.Mod` | `field/mod` |
-| `registry.mod` | `registry.Mod` | `registry/mod` |
-| `layer.mod` | `layer.Mod` | `layer/mod` |
-| `filter.mod` | `filter.Mod` | `filter/mod` |
-| `macros` | `tracingsubscriber.Macros` | `macros` |
-| `prelude` | `tracingsubscriber.Prelude` | `prelude` |
+| `tracing-subscriber.lib` | `tracingsubscriber.Lib` | `tracing-subscriber/src/lib` |
+| `tracing-subscriber.macros` | `tracingsubscriber.Macros` | `tracing-subscriber/src/macros` |
+| `tracing-subscriber.prelude` | `tracingsubscriber.Prelude` | `tracing-subscriber/src/prelude` |
 

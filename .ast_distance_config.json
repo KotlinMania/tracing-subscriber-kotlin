@@ -37,6 +37,20 @@
     "registry.mod",
     "layer_filters.mod",
     "format.mod",
-    "prelude"
+    "prelude",
+    "tracing-subscriber/src/macros.rs",
+    "tracing-subscriber/src/fmt/time/mod.rs",
+    "tracing-subscriber/src/fmt/format/mod.rs",
+    "tracing-subscriber/src/fmt/mod.rs",
+    "tracing-subscriber/src/field/mod.rs",
+    "tracing-subscriber/src/layer/mod.rs",
+    "tracing-subscriber/src/registry/mod.rs",
+    "tracing-subscriber/src/filter/layer_filters/mod.rs",
+    "tracing-subscriber/src/filter/env/mod.rs",
+    "tracing-subscriber/src/filter/mod.rs",
+    "tracing-subscriber/src/prelude.rs",
+    "tracing-subscriber/src/lib.rs",
+    "lib.rs",
+    "lib"
   ]
 }
