@@ -2,7 +2,7 @@
   "type": "port",
   "name": "tracing-subscriber-kotlin",
   "source": {
-    "path": "tmp",
+    "path": "tmp/tracing-subscriber/src",
     "lang": "rust"
   },
   "target": {

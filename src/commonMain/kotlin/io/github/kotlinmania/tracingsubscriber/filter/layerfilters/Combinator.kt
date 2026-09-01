@@ -1,4 +1,4 @@
-// port-lint: source tracing-subscriber/src/filter/layer_filters/combinator.rs
+// port-lint: source filter/layer_filters/combinator.rs
 package io.github.kotlinmania.tracingsubscriber.filter.layerfilters
 
 import io.github.kotlinmania.tracingsubscriber.core.Event
