@@ -123,22 +123,24 @@ class DirectiveTest {
         assertTrue(targets.wouldEnable("crate2", Level.DEBUG))
     }
 
+    private fun testParseBareLevel(directiveToTest: String, levelExpected: LevelFilter) {
+        val targets = Targets.parse(directiveToTest)
+        assertEquals(levelExpected, targets.defaultLevel())
+    }
+
     @Test
     fun parseDirectivesGlobalBareWarnLc() {
-        val targets = Targets.parse("warn")
-        assertEquals(LevelFilter.WARN, targets.defaultLevel())
+        testParseBareLevel("warn", LevelFilter.WARN)
     }
 
     @Test
     fun parseDirectivesGlobalBareWarnUc() {
-        val targets = Targets.parse("WARN")
-        assertEquals(LevelFilter.WARN, targets.defaultLevel())
+        testParseBareLevel("WARN", LevelFilter.WARN)
     }
 
     @Test
     fun parseDirectivesGlobalBareWarnMixed() {
-        val targets = Targets.parse("wArN")
-        assertEquals(LevelFilter.WARN, targets.defaultLevel())
+        testParseBareLevel("wArN", LevelFilter.WARN)
     }
 
     @Test
