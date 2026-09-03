@@ -87,35 +87,6 @@ jobs:
           DEPLOYMENT_TARGET_SETTING_NAME: MACOSX_DEPLOYMENT_TARGET
         run: ./gradlew embedSwiftExportForXcode --no-configuration-cache
 
-      - name: Set Swift package macOS platform
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          package = Path("build/SPMPackage/macosArm64/Debug/Package.swift")
-          text = package.read_text()
-          if "platforms:" not in text:
-              package.write_text(
-                  re.sub(
-                      r'(name:\s*"[^"]*",)',
-                      r'\1\n    platforms: [.macOS(.v14)],',
-                      text,
-                      count=1,
-                  )
-              )
-
-          for swift_file in Path("build/SPMPackage/macosArm64/Debug/Sources").rglob("*.swift"):
-              stext = swift_file.read_text()
-              if "any OrgJetbrainsKotlinxKotlinxDatetime._ExportedKotlinPackages_kotlinx_datetime_format_DateTimeFormatBuilder_" in stext:
-                  stext = re.sub(
-                      r'any OrgJetbrainsKotlinxKotlinxDatetime\._ExportedKotlinPackages_kotlinx_datetime_format_DateTimeFormatBuilder_\w+',
-                      'Any',
-                      stext,
-                  )
-                  swift_file.write_text(stext)
-          PY
-
       - name: Run swift test against Kotlin-exported module
         working-directory: swift-test-harness
         run: swift test
