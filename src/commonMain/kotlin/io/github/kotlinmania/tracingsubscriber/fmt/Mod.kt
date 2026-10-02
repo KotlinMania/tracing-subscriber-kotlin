@@ -49,13 +49,13 @@ class SubscriberBuilder(
         return LayeredSubscriber(fmtLayer, Registry())
     }
 
-    fun init() {
+    fun initialize() {
         setGlobalDefault(finish())
     }
 }
 
 fun fmt(): SubscriberBuilder = SubscriberBuilder()
 
-fun init() {
-    fmt().init()
+fun initialize() {
+    fmt().initialize()
 }
