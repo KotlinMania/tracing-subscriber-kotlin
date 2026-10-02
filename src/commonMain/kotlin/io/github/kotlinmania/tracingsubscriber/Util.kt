@@ -19,7 +19,7 @@ interface SubscriberInitExt {
             Result.failure(TryInitError(e.message ?: "Failed to set global default subscriber", e))
         }
 
-    fun init() {
+    fun initialize() {
         tryInit().getOrThrow()
     }
 }
