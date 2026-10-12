@@ -79,3 +79,13 @@ interface MakeExt<T> : MakeVisitor<T> {
 
     fun delimited(delimiter: String): Delimited<String, MakeVisitor<T>> = Delimited(delimiter, this)
 }
+
+/**
+ * Marker for sealed MakeExt trait implementations.
+ */
+class MakeExtMarker<T>
+
+/**
+ * Marker for sealed RecordFields trait implementations.
+ */
+class RecordFieldsMarker
