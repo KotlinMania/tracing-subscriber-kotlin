@@ -51,6 +51,7 @@ class StdoutWriter : Writer {
  * In-memory test writer.
  */
 class TestWriter(
+    private val useStderr: Boolean = false,
     private val onWrite: (String) -> Unit = {},
 ) : Writer {
     private val buffer = StringBuilder()
@@ -61,6 +62,10 @@ class TestWriter(
     }
 
     fun output(): String = buffer.toString()
+
+    companion object {
+        fun withStderr(): TestWriter = TestWriter(useStderr = true)
+    }
 }
 
 /**
@@ -88,6 +93,15 @@ class SinkWriter : Writer {
 }
 
 typealias OptionalWriter<T> = EitherWriter<T, SinkWriter>
+
+object OptionalWriters {
+    fun <T : Writer> none(): OptionalWriter<T> = EitherWriter.B(SinkWriter())
+
+    fun <T : Writer> some(writer: T): OptionalWriter<T> = EitherWriter.A(writer)
+
+    fun <T : Writer> from(writer: T?): OptionalWriter<T> =
+        if (writer != null) some(writer) else none()
+}
 
 /**
  * A [MakeWriter] combinator for max level filter.
@@ -198,3 +212,13 @@ interface MakeWriterExt : MakeWriter {
 
     fun <B : MakeWriter> and(other: B): Tee<MakeWriterExt, B> = Tee(this, other)
 }
+
+fun MakeWriter.withMaxLevel(level: Level): WithMaxLevel<MakeWriter> = WithMaxLevel(this, level)
+
+fun MakeWriter.withMinLevel(level: Level): WithMinLevel<MakeWriter> = WithMinLevel(this, level)
+
+fun MakeWriter.withFilter(filter: (Metadata) -> Boolean): WithFilter<MakeWriter> = WithFilter(this, filter)
+
+fun <B : MakeWriter> MakeWriter.orElse(other: B): OrElse<MakeWriter, B> = OrElse(this, other)
+
+fun <B : MakeWriter> MakeWriter.and(other: B): Tee<MakeWriter, B> = Tee(this, other)
