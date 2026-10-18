@@ -1,4 +1,3 @@
-// port-lint: source filter/env/mod.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
 import io.github.kotlinmania.tracingsubscriber.core.Event
@@ -22,8 +21,6 @@ sealed class FromEnvErrorKind {
         val errorDescription: String,
     ) : FromEnvErrorKind()
 }
-
-typealias ErrorKind = FromEnvErrorKind
 
 /**
  * Indicates that an error occurred when loading an EnvFilter from an environment variable.

@@ -1,4 +1,3 @@
-// port-lint: source fmt/format/mod.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.format
 
 import io.github.kotlinmania.tracingsubscriber.core.Event
@@ -22,12 +21,10 @@ class Compact
 /**
  * Format style marker: Multi-line pretty formatter.
  */
-typealias Pretty = PrettyFormat
 
 /**
  * Format style marker: Json formatter.
  */
-typealias Json = JsonFormat
 
 /**
  * A type that can format a tracing [Event] to a [Writer].
