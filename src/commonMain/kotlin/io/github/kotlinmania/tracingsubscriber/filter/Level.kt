@@ -9,8 +9,6 @@ import io.github.kotlinmania.tracingsubscriber.core.Subscriber
 import io.github.kotlinmania.tracingsubscriber.layer.Context
 import io.github.kotlinmania.tracingsubscriber.layer.Layer
 
-typealias LevelFilterType = LevelFilter
-
 /**
  * Filter implementation based on maximum [LevelFilter].
  */
