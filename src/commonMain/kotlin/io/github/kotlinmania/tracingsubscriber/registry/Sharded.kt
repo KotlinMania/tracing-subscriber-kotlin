@@ -4,7 +4,6 @@ package io.github.kotlinmania.tracingsubscriber.registry
 import io.github.kotlinmania.tracingsubscriber.core.SpanId
 import io.github.kotlinmania.tracingsubscriber.filter.layerfilters.FilterMap
 
-typealias ShardedRegistry = Registry
 typealias Data = RegistrySpanData
 
 class DataInner(

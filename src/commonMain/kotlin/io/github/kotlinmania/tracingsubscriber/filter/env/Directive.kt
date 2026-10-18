@@ -9,7 +9,7 @@ import io.github.kotlinmania.tracingsubscriber.core.Metadata
  */
 data class Directive(
     val inSpan: String? = null,
-    val fields: List<FieldMatch> = emptyList(),
+    val fields: List<io.github.kotlinmania.tracingsubscriber.filter.env.Match> = emptyList(),
     val target: String? = null,
     val level: LevelFilter = LevelFilter.OFF,
 ) : Comparable<Directive> {

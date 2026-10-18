@@ -1,7 +1,6 @@
 // port-lint: source reload.rs
 package io.github.kotlinmania.tracingsubscriber
 
-
 import io.github.kotlinmania.tracingsubscriber.core.Attributes
 import io.github.kotlinmania.tracingsubscriber.core.Event
 import io.github.kotlinmania.tracingsubscriber.core.Interest
@@ -23,8 +22,6 @@ sealed class ErrorKind {
     object Poisoned : ErrorKind()
 }
 
-typealias ReloadErrorKind = ErrorKind
-
 /**
  * Indicates that an error occurred when reloading a layer.
  */
@@ -36,8 +33,6 @@ class ReloadError(
             is ErrorKind.Poisoned -> "Lock poisoned"
         },
 ) : Exception(errorDescription)
-
-typealias Error = ReloadError
 
 /**
  * Handle for reloading a layer or filter.

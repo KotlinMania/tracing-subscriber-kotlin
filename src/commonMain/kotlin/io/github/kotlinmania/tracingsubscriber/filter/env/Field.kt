@@ -18,8 +18,6 @@ data class Match(
     val value: ValueMatch? = null,
 )
 
-typealias FieldMatch = Match
-
 data class MatchPattern(
     val pattern: Regex,
 )
