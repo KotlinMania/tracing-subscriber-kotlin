@@ -4,14 +4,14 @@ package io.github.kotlinmania.tracingsubscriber.field
 /**
  * A visitor wrapper that ensures any strings named "message" are formatted using Display semantics.
  */
-class Messages<V : MakeVisitor<*>>(
+class Messages<T, V : MakeVisitor<T>>(
     val inner: V,
-) : MakeVisitor<Any?> {
-    override fun makeVisitor(target: Any?): Visit {
-        @Suppress("UNCHECKED_CAST")
-        val v = (inner as MakeVisitor<Any?>).makeVisitor(target)
-        return MessageVisitor(v)
+) : MakeVisitor<T> {
+    companion object {
+        fun <T, V : MakeVisitor<T>> new(inner: V): Messages<T, V> = Messages(inner)
     }
+
+    override fun makeVisitor(target: T): Visit = MessageVisitor(inner.makeVisitor(target))
 }
 
 /**

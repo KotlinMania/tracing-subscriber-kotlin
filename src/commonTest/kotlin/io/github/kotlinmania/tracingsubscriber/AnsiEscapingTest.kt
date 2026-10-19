@@ -1,9 +1,11 @@
 // port-lint: tests tests/ansi_escaping.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.FieldSet
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.ValueSet
 import io.github.kotlinmania.tracingsubscriber.fmt.format.Escape
 import io.github.kotlinmania.tracingsubscriber.fmt.format.EscapingWriter
 import io.github.kotlinmania.tracingsubscriber.fmt.format.JsonFormat
@@ -85,7 +87,7 @@ class AnsiEscapingTest {
         val event =
             Event(
                 Metadata("test_event", "test_target", Level.INFO),
-                fields = mapOf("testing" to sanitizedInput, "user_input" to sanitizedInput),
+                values = ValueSet(FieldSet(listOf("testing", "user_input")), mapOf("testing" to sanitizedInput, "user_input" to sanitizedInput)),
             )
         jsonFmt.formatEvent(event, writer)
         val output = writer.getOutput()

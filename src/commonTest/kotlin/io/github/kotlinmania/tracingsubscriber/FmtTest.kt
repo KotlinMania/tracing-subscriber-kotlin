@@ -1,11 +1,12 @@
-// port-lint: tests fmt/mod.rs
 // port-lint: tests fmt/fmt_layer.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Attributes
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
+import io.github.kotlinmania.tracing.Attributes
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.FieldSet
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.ValueSet
 import io.github.kotlinmania.tracingsubscriber.fmt.format.JsonFormat
 import io.github.kotlinmania.tracingsubscriber.fmt.format.format
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.MakeWriter
@@ -35,7 +36,7 @@ class FmtTest {
         val event =
             Event(
                 Metadata("test_event", "my_target", Level.INFO),
-                fields = mapOf("message" to "hello world", "key" to "value"),
+                values = ValueSet(FieldSet(listOf("message", "key")), mapOf("message" to "hello world", "key" to "value")),
             )
         fmt.formatEvent(event, writer)
         val output = buffer.toString()
@@ -62,7 +63,7 @@ class FmtTest {
         val event =
             Event(
                 Metadata("test_event", "json_target", Level.DEBUG),
-                fields = mapOf("key1" to "val1"),
+                values = ValueSet(FieldSet(listOf("key1")), mapOf("key1" to "val1")),
             )
         jsonFmt.formatEvent(event, writer)
         val output = buffer.toString()
@@ -97,7 +98,7 @@ class FmtTest {
             subscriber.newSpan(
                 Attributes(
                     Metadata("my_span", "test_target", Level.INFO),
-                    values = mapOf("span_key" to "span_val"),
+                    values = ValueSet(FieldSet(listOf("span_key")), mapOf("span_key" to "span_val")),
                 ),
             )
         subscriber.enter(spanId)
@@ -105,7 +106,7 @@ class FmtTest {
         val event =
             Event(
                 Metadata("my_event", "test_target", Level.INFO),
-                fields = mapOf("message" to "hello world"),
+                values = ValueSet(FieldSet(listOf("message")), mapOf("message" to "hello world")),
             )
         subscriber.event(event)
 

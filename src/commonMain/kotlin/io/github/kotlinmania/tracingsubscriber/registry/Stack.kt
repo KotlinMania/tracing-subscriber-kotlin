@@ -1,25 +1,25 @@
 // port-lint: source registry/stack.rs
 package io.github.kotlinmania.tracingsubscriber.registry
 
-import io.github.kotlinmania.tracingsubscriber.core.SpanId
+import io.github.kotlinmania.tracing.Id
 
 /**
  * Tracks what spans are currently executing on a thread or coroutine.
  */
 class SpanStack {
     private data class ContextId(
-        val id: SpanId,
+        val id: Id,
         val duplicate: Boolean,
     )
 
     private val stack = mutableListOf<ContextId>()
 
-    fun push(id: SpanId) {
+    fun push(id: Id) {
         val duplicate = stack.any { it.id == id }
         stack.add(ContextId(id, duplicate))
     }
 
-    fun pop(expectedId: SpanId): Boolean {
+    fun pop(expectedId: Id): Boolean {
         for (i in stack.indices.reversed()) {
             if (stack[i].id == expectedId) {
                 val item = stack.removeAt(i)
@@ -29,13 +29,13 @@ class SpanStack {
         return false
     }
 
-    fun current(): SpanId? {
+    fun current(): Id? {
         for (item in stack.asReversed()) {
             if (!item.duplicate) return item.id
         }
         return null
     }
 
-    fun iter(): List<SpanId> =
+    fun iter(): List<Id> =
         stack.asReversed().filter { !it.duplicate }.map { it.id }
 }

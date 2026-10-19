@@ -1,7 +1,7 @@
 // port-lint: source filter/env/field.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
+import io.github.kotlinmania.tracing.LevelFilter
 
 /**
  * Indicates that a field name was invalid.
@@ -17,8 +17,6 @@ data class Match(
     val name: String,
     val value: ValueMatch? = null,
 )
-
-typealias FieldMatch = Match
 
 data class MatchPattern(
     val pattern: Regex,

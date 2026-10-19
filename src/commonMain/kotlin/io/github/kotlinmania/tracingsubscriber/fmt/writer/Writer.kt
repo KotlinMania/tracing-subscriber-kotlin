@@ -1,8 +1,8 @@
 // port-lint: source fmt/writer.rs
 package io.github.kotlinmania.tracingsubscriber.fmt.writer
 
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.Metadata
 
 /**
  * Interface for writing formatted log output.

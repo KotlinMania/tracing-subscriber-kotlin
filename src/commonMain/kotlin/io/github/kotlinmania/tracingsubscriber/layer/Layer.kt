@@ -1,14 +1,13 @@
-// port-lint: source layer/mod.rs
 package io.github.kotlinmania.tracingsubscriber.layer
 
-import io.github.kotlinmania.tracingsubscriber.core.Attributes
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Interest
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.Record
-import io.github.kotlinmania.tracingsubscriber.core.SpanId
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Attributes
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Id
+import io.github.kotlinmania.tracing.Interest
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Record
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.filter.Filter
 import io.github.kotlinmania.tracingsubscriber.filter.layerfilters.Filtered
 
@@ -20,23 +19,23 @@ interface Layer<S : Subscriber> {
 
     fun enabled(metadata: Metadata, context: Context<S>): Boolean = true
 
-    fun onNewSpan(attributes: Attributes, id: SpanId, context: Context<S>) {}
+    fun onNewSpan(attributes: Attributes, id: Id, context: Context<S>) {}
 
-    fun onRecord(id: SpanId, values: Record, context: Context<S>) {}
+    fun onRecord(id: Id, values: Record, context: Context<S>) {}
 
-    fun onFollowsFrom(span: SpanId, follows: SpanId, context: Context<S>) {}
+    fun onFollowsFrom(span: Id, follows: Id, context: Context<S>) {}
 
     fun eventEnabled(event: Event, context: Context<S>): Boolean = enabled(event.metadata, context)
 
     fun onEvent(event: Event, context: Context<S>) {}
 
-    fun onEnter(id: SpanId, context: Context<S>) {}
+    fun onEnter(id: Id, context: Context<S>) {}
 
-    fun onExit(id: SpanId, context: Context<S>) {}
+    fun onExit(id: Id, context: Context<S>) {}
 
-    fun onClose(id: SpanId, context: Context<S>) {}
+    fun onClose(id: Id, context: Context<S>) {}
 
-    fun onIdChange(oldId: SpanId, newId: SpanId, context: Context<S>) {}
+    fun onIdChange(oldId: Id, newId: Id, context: Context<S>) {}
 
     fun maxLevelHint(): LevelFilter? = null
 

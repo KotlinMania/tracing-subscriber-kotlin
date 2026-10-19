@@ -1,13 +1,13 @@
 // port-lint: tests layer/layered.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Attributes
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.SpanId
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Attributes
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Id
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.filter.filterFn
 import io.github.kotlinmania.tracingsubscriber.layer.Context
 import io.github.kotlinmania.tracingsubscriber.layer.Layer
@@ -19,13 +19,13 @@ import kotlin.test.assertEquals
 class LayeredTest {
     class RecordingLayer : Layer<Subscriber> {
         val events = mutableListOf<String>()
-        val enteredSpans = mutableListOf<SpanId>()
+        val enteredSpans = mutableListOf<Id>()
 
         override fun onEvent(event: Event, context: Context<Subscriber>) {
             events.add(event.metadata.name)
         }
 
-        override fun onEnter(id: SpanId, context: Context<Subscriber>) {
+        override fun onEnter(id: Id, context: Context<Subscriber>) {
             enteredSpans.add(id)
         }
     }

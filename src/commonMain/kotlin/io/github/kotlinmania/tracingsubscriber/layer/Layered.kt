@@ -1,14 +1,14 @@
 // port-lint: source layer/layered.rs
 package io.github.kotlinmania.tracingsubscriber.layer
 
-import io.github.kotlinmania.tracingsubscriber.core.Attributes
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Interest
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.Record
-import io.github.kotlinmania.tracingsubscriber.core.SpanId
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Attributes
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Id
+import io.github.kotlinmania.tracing.Interest
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Record
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.registry.LookupSpan
 import io.github.kotlinmania.tracingsubscriber.registry.SpanData
 import io.github.kotlinmania.tracingsubscriber.registry.SpanRef
@@ -33,17 +33,17 @@ class Layered<A : Layer<S>, B : Layer<S>, S : Subscriber>(
     override fun enabled(metadata: Metadata, context: Context<S>): Boolean =
         layerA.enabled(metadata, context) || layerB.enabled(metadata, context)
 
-    override fun onNewSpan(attributes: Attributes, id: SpanId, context: Context<S>) {
+    override fun onNewSpan(attributes: Attributes, id: Id, context: Context<S>) {
         layerA.onNewSpan(attributes, id, context)
         layerB.onNewSpan(attributes, id, context)
     }
 
-    override fun onRecord(id: SpanId, values: Record, context: Context<S>) {
+    override fun onRecord(id: Id, values: Record, context: Context<S>) {
         layerA.onRecord(id, values, context)
         layerB.onRecord(id, values, context)
     }
 
-    override fun onFollowsFrom(span: SpanId, follows: SpanId, context: Context<S>) {
+    override fun onFollowsFrom(span: Id, follows: Id, context: Context<S>) {
         layerA.onFollowsFrom(span, follows, context)
         layerB.onFollowsFrom(span, follows, context)
     }
@@ -60,22 +60,22 @@ class Layered<A : Layer<S>, B : Layer<S>, S : Subscriber>(
         }
     }
 
-    override fun onEnter(id: SpanId, context: Context<S>) {
+    override fun onEnter(id: Id, context: Context<S>) {
         layerA.onEnter(id, context)
         layerB.onEnter(id, context)
     }
 
-    override fun onExit(id: SpanId, context: Context<S>) {
+    override fun onExit(id: Id, context: Context<S>) {
         layerA.onExit(id, context)
         layerB.onExit(id, context)
     }
 
-    override fun onClose(id: SpanId, context: Context<S>) {
+    override fun onClose(id: Id, context: Context<S>) {
         layerA.onClose(id, context)
         layerB.onClose(id, context)
     }
 
-    override fun onIdChange(oldId: SpanId, newId: SpanId, context: Context<S>) {
+    override fun onIdChange(oldId: Id, newId: Id, context: Context<S>) {
         layerA.onIdChange(oldId, newId, context)
         layerB.onIdChange(oldId, newId, context)
     }
@@ -116,18 +116,18 @@ class LayeredSubscriber<L : Layer<S>, S : Subscriber>(
     override fun enabled(metadata: Metadata): Boolean =
         layer.enabled(metadata, context) && inner.enabled(metadata)
 
-    override fun newSpan(attributes: Attributes): SpanId {
+    override fun newSpan(attributes: Attributes): Id {
         val id = inner.newSpan(attributes)
         layer.onNewSpan(attributes, id, context)
         return id
     }
 
-    override fun record(id: SpanId, values: Record) {
+    override fun record(id: Id, values: Record) {
         inner.record(id, values)
         layer.onRecord(id, values, context)
     }
 
-    override fun recordFollowsFrom(span: SpanId, follows: SpanId) {
+    override fun recordFollowsFrom(span: Id, follows: Id) {
         inner.recordFollowsFrom(span, follows)
         layer.onFollowsFrom(span, follows, context)
     }
@@ -139,19 +139,19 @@ class LayeredSubscriber<L : Layer<S>, S : Subscriber>(
         inner.event(event)
     }
 
-    override fun enter(id: SpanId) {
+    override fun enter(id: Id) {
         inner.enter(id)
         layer.onEnter(id, context)
     }
 
-    override fun exit(id: SpanId) {
+    override fun exit(id: Id) {
         layer.onExit(id, context)
         inner.exit(id)
     }
 
-    override fun cloneSpan(id: SpanId): SpanId = inner.cloneSpan(id)
+    override fun cloneSpan(id: Id): Id = inner.cloneSpan(id)
 
-    override fun tryClose(id: SpanId): Boolean {
+    override fun tryClose(id: Id): Boolean {
         val closed = inner.tryClose(id)
         if (closed) {
             layer.onClose(id, context)
@@ -159,11 +159,11 @@ class LayeredSubscriber<L : Layer<S>, S : Subscriber>(
         return closed
     }
 
-    override fun currentSpan(): SpanId? = inner.currentSpan()
+    override fun currentSpan(): Id? = inner.currentSpan()
 
-    override fun spanData(id: SpanId): SpanData? = (inner as? LookupSpan)?.spanData(id)
+    override fun spanData(id: Id): SpanData? = (inner as? LookupSpan)?.spanData(id)
 
-    override fun span(id: SpanId): SpanRef<LookupSpan>? = (inner as? LookupSpan)?.span(id)
+    override fun span(id: Id): SpanRef<LookupSpan>? = (inner as? LookupSpan)?.span(id)
 
     override fun registerFilter(): Long = (inner as? LookupSpan)?.registerFilter() ?: 0L
 }

@@ -4,18 +4,14 @@ package io.github.kotlinmania.tracingsubscriber.field
 /**
  * A visitor wrapper that formats debug fields using alternate formatting.
  */
-class Alt<V : MakeVisitor<*>>(
+class Alt<T, V : MakeVisitor<T>>(
     val inner: V,
-) : MakeVisitor<Any?> {
+) : MakeVisitor<T> {
     companion object {
-        fun <V : MakeVisitor<*>> new(inner: V): Alt<V> = Alt(inner)
+        fun <T, V : MakeVisitor<T>> new(inner: V): Alt<T, V> = Alt(inner)
     }
 
-    override fun makeVisitor(target: Any?): Visit {
-        @Suppress("UNCHECKED_CAST")
-        val v = (inner as MakeVisitor<Any?>).makeVisitor(target)
-        return AltVisitor(v)
-    }
+    override fun makeVisitor(target: T): Visit = AltVisitor(inner.makeVisitor(target))
 }
 
 /**

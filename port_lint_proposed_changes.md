@@ -1,6 +1,6 @@
 # port-lint Proposed Changes
 
-**Generated:** 2026-10-13
+**Generated:** 2026-10-19
 **Source:** tmp/tracing-subscriber/src
 **Target:** src/commonMain/kotlin/io/github/kotlinmania/tracingsubscriber
 
