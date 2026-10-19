@@ -1,8 +1,8 @@
 // port-lint: tests filter/level.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.LevelFilter
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

@@ -1,10 +1,10 @@
 // port-lint: source fmt/fmt_layer.rs
 package io.github.kotlinmania.tracingsubscriber.fmt
 
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.SpanId
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Id
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.fmt.format.Format
 import io.github.kotlinmania.tracingsubscriber.fmt.format.FormatEvent
 import io.github.kotlinmania.tracingsubscriber.fmt.format.Full
@@ -46,11 +46,11 @@ class FmtContext<S : Subscriber, N>(
         }
     }
 
-    fun metadata(id: SpanId): Metadata? = ctx.metadata(id)
+    fun metadata(id: Id): Metadata? = ctx.metadata(id)
 
-    fun span(id: SpanId): SpanRef<LookupSpan>? = ctx.lookupSpan(id)
+    fun span(id: Id): SpanRef<LookupSpan>? = ctx.lookupSpan(id)
 
-    fun exists(id: SpanId): Boolean = ctx.exists(id)
+    fun exists(id: Id): Boolean = ctx.exists(id)
 }
 
 /**

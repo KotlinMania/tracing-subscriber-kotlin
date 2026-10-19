@@ -1,12 +1,12 @@
 // port-lint: source filter/targets.rs
 package io.github.kotlinmania.tracingsubscriber.filter
 
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Interest
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Interest
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.layer.Context
 import io.github.kotlinmania.tracingsubscriber.layer.Layer
 
@@ -135,11 +135,11 @@ class Targets :
                     val split = partTrimmed.split('=', limit = 2)
                     val target = split[0].trim()
                     val levelStr = split[1].trim()
-                    val level = LevelFilter.fromString(levelStr)
+                    val level = if (levelStr == "0") LevelFilter.OFF else LevelFilter.fromString(levelStr)
                     targets.withTarget(target, level)
                 } else {
                     // Could be a bare level or a target without level (defaults to TRACE in upstream)
-                    val levelOrNull = LevelFilter.fromStringOrNull(partTrimmed)
+                    val levelOrNull = if (partTrimmed == "0") LevelFilter.OFF else LevelFilter.fromStringOrNull(partTrimmed)
                     if (levelOrNull != null) {
                         targets.withDefault(levelOrNull)
                     } else {

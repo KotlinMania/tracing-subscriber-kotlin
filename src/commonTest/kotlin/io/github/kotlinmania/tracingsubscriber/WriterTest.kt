@@ -1,8 +1,8 @@
 // port-lint: tests fmt/writer.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.Metadata
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.MakeWriter
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.OptionalWriters
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.TestWriter

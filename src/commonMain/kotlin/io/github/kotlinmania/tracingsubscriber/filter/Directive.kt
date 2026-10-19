@@ -1,8 +1,8 @@
 // port-lint: source filter/directive.rs
 package io.github.kotlinmania.tracingsubscriber.filter
 
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
 
 /**
  * Indicates that a string could not be parsed as a filtering directive.

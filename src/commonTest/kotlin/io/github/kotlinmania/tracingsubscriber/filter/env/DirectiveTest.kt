@@ -1,8 +1,8 @@
 // port-lint: tests filter/env/directive.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.LevelFilter
 import io.github.kotlinmania.tracingsubscriber.filter.Targets
 import kotlin.test.Test
 import kotlin.test.assertEquals

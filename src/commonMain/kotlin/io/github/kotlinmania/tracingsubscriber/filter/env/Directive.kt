@@ -1,8 +1,8 @@
 // port-lint: source filter/env/directive.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
 
 /**
  * A single filtering directive for EnvFilter.
@@ -43,11 +43,11 @@ data class Directive(
                 val parts = trimmed.split('=', limit = 2)
                 val targetPart = parts[0].trim()
                 val levelPart = parts[1].trim()
-                val level = LevelFilter.fromString(levelPart)
+                val level = if (levelPart == "0") LevelFilter.OFF else LevelFilter.fromString(levelPart)
                 return Directive(target = if (targetPart.isNotEmpty()) targetPart else null, level = level)
             }
 
-            val levelOrNull = LevelFilter.fromStringOrNull(trimmed)
+            val levelOrNull = if (trimmed == "0") LevelFilter.OFF else LevelFilter.fromStringOrNull(trimmed)
             if (levelOrNull != null) {
                 return Directive(level = levelOrNull)
             }

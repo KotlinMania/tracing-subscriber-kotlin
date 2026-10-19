@@ -1,12 +1,14 @@
 package io.github.kotlinmania.tracingsubscriber.fmt.format
 
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Level
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Level
 import io.github.kotlinmania.tracingsubscriber.field.RecordFields
 import io.github.kotlinmania.tracingsubscriber.field.Visit
 import io.github.kotlinmania.tracingsubscriber.fmt.time.FormatTime
 import io.github.kotlinmania.tracingsubscriber.fmt.time.SystemTime
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.Writer
+
+val Event.fields: Map<String, Any?> get() = values.values
 
 /**
  * Format style marker: Full single-line formatter.

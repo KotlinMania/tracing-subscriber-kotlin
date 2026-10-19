@@ -4,20 +4,16 @@ package io.github.kotlinmania.tracingsubscriber.field
 /**
  * A MakeVisitor wrapper that separates formatted fields with a delimiter.
  */
-class Delimited<D : CharSequence, V : MakeVisitor<*>>(
+class Delimited<T, D : CharSequence, V : MakeVisitor<T>>(
     val delimiter: D,
     val inner: V,
-) : MakeVisitor<Any?> {
+) : MakeVisitor<T> {
     companion object {
-        fun <D : CharSequence, V : MakeVisitor<*>> new(delimiter: D, inner: V): Delimited<D, V> =
+        fun <T, D : CharSequence, V : MakeVisitor<T>> new(delimiter: D, inner: V): Delimited<T, D, V> =
             Delimited(delimiter, inner)
     }
 
-    override fun makeVisitor(target: Any?): Visit {
-        @Suppress("UNCHECKED_CAST")
-        val v = (inner as MakeVisitor<Any?>).makeVisitor(target)
-        return VisitDelimited(delimiter, v)
-    }
+    override fun makeVisitor(target: T): Visit = VisitDelimited(delimiter, inner.makeVisitor(target))
 }
 
 /**

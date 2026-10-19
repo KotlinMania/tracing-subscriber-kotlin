@@ -1,10 +1,13 @@
-// port-lint: tests registry/mod.rs
+// port-lint: tests registry/extensions.rs
+// port-lint: tests registry/sharded.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Attributes
-import io.github.kotlinmania.tracingsubscriber.core.Level
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.Record
+import io.github.kotlinmania.tracing.Attributes
+import io.github.kotlinmania.tracing.FieldSet
+import io.github.kotlinmania.tracing.Level
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Record
+import io.github.kotlinmania.tracing.ValueSet
 import io.github.kotlinmania.tracingsubscriber.registry.Extensions
 import io.github.kotlinmania.tracingsubscriber.registry.registry
 import kotlin.test.Test
@@ -50,14 +53,14 @@ class RegistryTest {
         val reg = registry()
 
         val rootMeta = Metadata("root_span", "target", Level.INFO)
-        val rootId = reg.newSpan(Attributes(rootMeta, values = mapOf("key1" to "val1")))
+        val rootId = reg.newSpan(Attributes(rootMeta, values = ValueSet(FieldSet(listOf("key1")), mapOf("key1" to "val1"))))
 
         assertNull(reg.currentSpan())
         reg.enter(rootId)
         assertEquals(rootId, reg.currentSpan())
 
         val childMeta = Metadata("child_span", "target", Level.DEBUG)
-        val childId = reg.newSpan(Attributes(childMeta, isContextual = true, values = mapOf("key2" to "val2")))
+        val childId = reg.newSpan(Attributes(childMeta, isContextual = true, values = ValueSet(FieldSet(listOf("key2")), mapOf("key2" to "val2"))))
 
         reg.enter(childId)
         assertEquals(childId, reg.currentSpan())
@@ -77,7 +80,7 @@ class RegistryTest {
         assertEquals("root_span", rootToLeaf[0].name)
         assertEquals("child_span", rootToLeaf[1].name)
 
-        reg.record(childId, Record(mapOf("key3" to "val3")))
+        reg.record(childId, Record(ValueSet(FieldSet(listOf("key3")), mapOf("key3" to "val3"))))
         assertEquals("val2", childSpan.fields["key2"])
         assertEquals("val3", childSpan.fields["key3"])
 

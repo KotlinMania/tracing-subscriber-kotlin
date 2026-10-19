@@ -1,7 +1,7 @@
-// port-lint: source fmt/mod.rs
 package io.github.kotlinmania.tracingsubscriber.fmt
 
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Subscriber
+import io.github.kotlinmania.tracing.setGlobalDefault
 import io.github.kotlinmania.tracingsubscriber.fmt.format.Format
 import io.github.kotlinmania.tracingsubscriber.fmt.format.FormatEvent
 import io.github.kotlinmania.tracingsubscriber.fmt.format.Full
@@ -9,7 +9,6 @@ import io.github.kotlinmania.tracingsubscriber.fmt.writer.MakeWriter
 import io.github.kotlinmania.tracingsubscriber.fmt.writer.StdoutWriter
 import io.github.kotlinmania.tracingsubscriber.layer.LayeredSubscriber
 import io.github.kotlinmania.tracingsubscriber.registry.Registry
-import io.github.kotlinmania.tracingsubscriber.setGlobalDefault
 
 /**
  * A builder for creating configured [Subscriber] instances that format events.
@@ -51,6 +50,10 @@ class SubscriberBuilder(
 
     fun initialize() {
         setGlobalDefault(finish())
+    }
+
+    fun init() {
+        initialize()
     }
 }
 

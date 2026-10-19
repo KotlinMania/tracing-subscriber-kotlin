@@ -1,11 +1,11 @@
 // port-lint: source filter/layer_filters/combinator.rs
 package io.github.kotlinmania.tracingsubscriber.filter.layerfilters
 
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Interest
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Interest
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.filter.Filter
 import io.github.kotlinmania.tracingsubscriber.layer.Context
 

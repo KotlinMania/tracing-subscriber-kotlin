@@ -1,21 +1,20 @@
 // port-lint: source reload.rs
 package io.github.kotlinmania.tracingsubscriber
 
-import io.github.kotlinmania.tracingsubscriber.core.Attributes
-import io.github.kotlinmania.tracingsubscriber.core.Event
-import io.github.kotlinmania.tracingsubscriber.core.Interest
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
-import io.github.kotlinmania.tracingsubscriber.core.Metadata
-import io.github.kotlinmania.tracingsubscriber.core.Record
-import io.github.kotlinmania.tracingsubscriber.core.SpanId
-import io.github.kotlinmania.tracingsubscriber.core.Subscriber
+import io.github.kotlinmania.tracing.Attributes
+import io.github.kotlinmania.tracing.Event
+import io.github.kotlinmania.tracing.Id
+import io.github.kotlinmania.tracing.Interest
+import io.github.kotlinmania.tracing.LevelFilter
+import io.github.kotlinmania.tracing.Metadata
+import io.github.kotlinmania.tracing.Record
+import io.github.kotlinmania.tracing.Subscriber
 import io.github.kotlinmania.tracingsubscriber.filter.Filter
 import io.github.kotlinmania.tracingsubscriber.layer.Context
 
 /**
  * Kind of reload error.
  */
-
 sealed class ErrorKind {
     object SubscriberGone : ErrorKind()
 
@@ -37,7 +36,6 @@ class ReloadError(
 /**
  * Handle for reloading a layer or filter.
  */
-
 class Handle<L : io.github.kotlinmania.tracingsubscriber.layer.Layer<Subscriber>> internal constructor(
     private val inner: RwLock<L>,
 ) {
@@ -74,15 +72,15 @@ class ReloadLayer<L : io.github.kotlinmania.tracingsubscriber.layer.Layer<Subscr
     override fun enabled(metadata: Metadata, context: Context<Subscriber>): Boolean =
         inner.read { it.enabled(metadata, context) }
 
-    override fun onNewSpan(attributes: Attributes, id: SpanId, context: Context<Subscriber>) {
+    override fun onNewSpan(attributes: Attributes, id: Id, context: Context<Subscriber>) {
         inner.read { it.onNewSpan(attributes, id, context) }
     }
 
-    override fun onRecord(id: SpanId, values: Record, context: Context<Subscriber>) {
+    override fun onRecord(id: Id, values: Record, context: Context<Subscriber>) {
         inner.read { it.onRecord(id, values, context) }
     }
 
-    override fun onFollowsFrom(span: SpanId, follows: SpanId, context: Context<Subscriber>) {
+    override fun onFollowsFrom(span: Id, follows: Id, context: Context<Subscriber>) {
         inner.read { it.onFollowsFrom(span, follows, context) }
     }
 
@@ -93,19 +91,19 @@ class ReloadLayer<L : io.github.kotlinmania.tracingsubscriber.layer.Layer<Subscr
         inner.read { it.onEvent(event, context) }
     }
 
-    override fun onEnter(id: SpanId, context: Context<Subscriber>) {
+    override fun onEnter(id: Id, context: Context<Subscriber>) {
         inner.read { it.onEnter(id, context) }
     }
 
-    override fun onExit(id: SpanId, context: Context<Subscriber>) {
+    override fun onExit(id: Id, context: Context<Subscriber>) {
         inner.read { it.onExit(id, context) }
     }
 
-    override fun onClose(id: SpanId, context: Context<Subscriber>) {
+    override fun onClose(id: Id, context: Context<Subscriber>) {
         inner.read { it.onClose(id, context) }
     }
 
-    override fun onIdChange(oldId: SpanId, newId: SpanId, context: Context<Subscriber>) {
+    override fun onIdChange(oldId: Id, newId: Id, context: Context<Subscriber>) {
         inner.read { it.onIdChange(oldId, newId, context) }
     }
 

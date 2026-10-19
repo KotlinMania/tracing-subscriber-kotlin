@@ -1,7 +1,7 @@
 // port-lint: source filter/env/builder.rs
 package io.github.kotlinmania.tracingsubscriber.filter.env
 
-import io.github.kotlinmania.tracingsubscriber.core.LevelFilter
+import io.github.kotlinmania.tracing.LevelFilter
 
 /**
  * A builder for constructing new [EnvFilter]s.
